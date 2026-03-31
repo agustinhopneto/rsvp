@@ -3,7 +3,7 @@ import { tv, type VariantProps } from "tailwind-variants";
 import { cn } from "@/lib/utils";
 
 const labelVariants = tv({
-  base: "font-sans text-base font-semibold",
+  base: "font-sans text-sm font-semibold",
   variants: {
     variant: {
       default: "text-foreground",

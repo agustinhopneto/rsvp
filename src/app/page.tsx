@@ -1,4 +1,6 @@
-import type { ReactNode } from "react";
+"use client";
+
+import { useState } from "react";
 import {
   Calendar,
   ChevronRight,
@@ -8,217 +10,240 @@ import {
   Trash2,
   Wine,
 } from "lucide-react";
+import { Button, Input, Switch, Typography } from "@/components/ui";
 
 function GradientDivider({ reverse = false }: { reverse?: boolean }) {
   return (
     <div
       className={
         reverse
-          ? "h-px w-full bg-gradient-to-r from-primary/0 via-primary/60 to-accent/0"
-          : "h-px w-full bg-gradient-to-r from-accent/0 via-accent/60 to-primary/0"
+          ? "h-px w-full bg-linear-to-r from-primary/0 via-primary/60 to-accent/0"
+          : "h-px w-full bg-linear-to-r from-accent/0 via-accent/60 to-primary/0"
       }
     />
   );
 }
 
-function OutlineButton({
-  children,
-  tone = "primary",
-  icon,
-}: {
-  children: ReactNode;
-  tone?: "primary" | "secondary";
-  icon: ReactNode;
-}) {
-  const isPrimary = tone === "primary";
-
-  return (
-    <button
-      type="button"
-      className={
-        isPrimary
-          ? "flex h-9 w-fit items-center justify-center gap-2 rounded-xl border border-primary px-3 text-sm font-bold text-primary"
-          : "flex h-9 w-fit items-center justify-center gap-2 rounded-xl border border-accent px-3 text-sm font-bold text-accent"
-      }
-    >
-      {icon}
-      {children}
-      <ChevronRight
-        className={isPrimary ? "size-3.5 text-primary/0" : "size-3.5 text-accent/0"}
-      />
-    </button>
-  );
-}
-
-function LabeledField({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="flex w-full flex-col gap-1.5">
-      <p className="text-base font-semibold text-foreground">{label}</p>
-      <div className="flex h-12 w-full items-center rounded-xl border border-field-border bg-background px-3">
-        <p className="text-base font-medium text-muted-foreground">{value}</p>
-      </div>
-    </div>
-  );
-}
-
-function RestrictionSwitch({
-  label,
-  active = false,
-}: {
-  label: string;
-  active?: boolean;
-}) {
-  return (
-    <div className="flex w-full items-center justify-between">
-      <p className="text-base font-semibold text-foreground">{label}</p>
-      <div
-        className={
-          active
-            ? "flex h-6 w-10 items-center justify-end rounded-xl border border-primary bg-primary/20 p-0.5"
-            : "flex h-6 w-10 items-center rounded-xl border border-switch-border bg-background p-0.5"
-        }
-      >
-        <div
-          className={
-            active ? "size-[18px] rounded-full bg-primary" : "size-[18px] rounded-full bg-switch-knob"
-          }
-        />
-      </div>
-    </div>
-  );
-}
-
 export default function Home() {
+  const [guestName, setGuestName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [restrictions, setRestrictions] = useState({
+    vegan: false,
+    vegetarian: true,
+    lactoseFree: false,
+    glutenFree: false,
+  });
+
   return (
     <main className="min-h-dvh overflow-x-auto bg-background p-5">
-      <section className="grid h-[1020px] w-[1400px] grid-cols-2 overflow-hidden bg-background">
+      <section className="grid h-255 w-350 grid-cols-2 overflow-hidden bg-background">
         <div className="flex h-full w-full flex-col gap-6 bg-background px-16 pt-32 pb-16">
-          <p className="font-sans text-base font-semibold tracking-[1.4px] text-accent">
+          <Typography variant="caption" className="text-accent">
             {"// CONVITE.EXE v3.0 INICIADO"}
-          </p>
+          </Typography>
 
-          <h1 className="w-[390px] font-display text-[60px] leading-[0.98] font-bold text-primary">
+          <Typography
+            as="h1"
+            variant="h1"
+            className="neon-flicker-title w-97.5 text-[60px] leading-[0.98]"
+          >
             Churrascão
             <br />
             dos 30 do
             <br />
             Agustinho
-          </h1>
+          </Typography>
 
-          <p className="w-[360px] font-sans text-base leading-[1.3] font-medium text-muted-foreground">
+          <Typography variant="body" className="w-90 leading-[1.3]">
             Venha celebrar conosco este momento especial. Sua presença vale mais
             que qualquer presente!
-          </p>
+          </Typography>
 
           <GradientDivider />
 
-          <h2 className="font-display text-[42px] font-bold text-foreground">
+          <Typography
+            as="h2"
+            variant="h1"
+            className="text-[42px] text-foreground"
+          >
             Detalhes
-          </h2>
+          </Typography>
 
           <div className="flex w-full gap-3.5">
             <div className="flex items-center gap-2">
               <Calendar className="size-3.5 text-accent" />
-              <p className="font-sans text-base font-semibold text-detail-foreground">
+              <Typography className="text-base font-semibold text-detail-foreground">
                 11 de Abril, 2026
-              </p>
+              </Typography>
             </div>
             <div className="flex w-full items-center gap-2">
               <MapPin className="size-3.5 text-accent" />
-              <p className="w-full font-sans text-base font-semibold text-detail-foreground">
+              <Typography className="w-full text-base font-semibold text-detail-foreground">
                 Av. Vereador José Diniz, 599 - Salão de Festas
-              </p>
+              </Typography>
             </div>
           </div>
 
           <div className="flex w-full gap-3.5">
             <div className="flex items-center gap-2">
               <Clock3 className="size-3.5 text-accent" />
-              <p className="font-sans text-base font-semibold text-detail-foreground">
+              <Typography className="text-base font-semibold text-detail-foreground">
                 14h30
-              </p>
+              </Typography>
             </div>
             <div className="flex w-full items-center gap-2">
               <Wine className="size-3.5 text-accent" />
-              <p className="w-full font-sans text-base font-semibold text-detail-foreground">
+              <Typography className="w-full text-base font-semibold text-detail-foreground">
                 Leve só o que for beber (álcool/extra).
-              </p>
+              </Typography>
             </div>
           </div>
 
-          <OutlineButton tone="primary" icon={<MapPin className="size-4" />}>
+          <Button
+            intent="outlinePrimary"
+            size="small"
+            leadingIcon={<MapPin className="size-4" />}
+            onClick={() =>
+              window.open(
+                "https://maps.google.com/?q=Av.+Vereador+José+Diniz,+599",
+                "_blank",
+              )
+            }
+          >
             Abrir no Google Maps
-          </OutlineButton>
+          </Button>
 
-          <p className="font-sans text-base font-medium tracking-[0.7px] text-muted-foreground">
+          <Typography className="text-base font-medium tracking-[0.7px] text-muted-foreground">
             Feito com ♥ e Coquinha Zero
-          </p>
+          </Typography>
         </div>
 
         <div className="flex h-full w-full flex-col gap-6 bg-surface px-16 pt-32 pb-16">
-          <h2 className="w-full font-display text-[34px] leading-none font-bold text-primary">
+          <Typography
+            as="h2"
+            variant="h1"
+            className="w-full text-[34px] leading-none"
+          >
             Confirme sua presença
-          </h2>
+          </Typography>
 
-          <p className="w-full font-sans text-base leading-[1.3] font-medium text-subtle-foreground">
+          <Typography className="w-full text-base leading-[1.3] font-medium text-subtle-foreground">
             Preencha seus dados, adicione os convidados e selecione as
             restrições alimentares de cada pessoa. Em seguida, clique em
             CONFIRMAR PRESENÇA.
-          </p>
+          </Typography>
 
           <GradientDivider reverse />
 
           <div className="flex w-full flex-col gap-3">
-            <h3 className="font-display text-2xl font-bold text-primary">
+            <Typography as="h3" variant="h1" className="text-2xl">
               Lista de convidados
-            </h3>
+            </Typography>
 
             <div className="flex w-full flex-col gap-2.5 rounded-xl border border-border bg-surface p-3">
               <div className="flex w-full items-center justify-between">
-                <p className="font-display text-lg font-bold text-foreground">
+                <Typography
+                  as="p"
+                  variant="h1"
+                  className="text-lg text-foreground"
+                >
                   Pessoa 1
-                </p>
-                <OutlineButton
-                  tone="secondary"
-                  icon={<Trash2 className="size-3.5" />}
+                </Typography>
+                <Button
+                  intent="outlineSecondary"
+                  size="small"
+                  leadingIcon={<Trash2 className="size-3.5" />}
                 >
                   Remover convidado
-                </OutlineButton>
+                </Button>
               </div>
 
               <div className="flex w-full gap-2.5">
-                <LabeledField label="Nome completo" value="Seu nome completo" />
-                <LabeledField label="Telefone (zap)" value="(11) 99999-0000" />
+                <Input
+                  label="Nome completo"
+                  value={guestName}
+                  onChange={(event) => setGuestName(event.target.value)}
+                  placeholder="Seu nome completo"
+                  state="default"
+                />
+                <Input
+                  label="Telefone (zap)"
+                  value={phone}
+                  onChange={(event) => setPhone(event.target.value)}
+                  placeholder="(11) 99999-0000"
+                  mask="(99) 99999-9999"
+                  state="default"
+                />
               </div>
 
               <div className="flex w-full flex-col gap-1.5">
-                <p className="text-base font-semibold text-foreground">
+                <Typography className="text-base font-semibold text-foreground">
                   Restrições alimentares
-                </p>
+                </Typography>
                 <div className="flex w-full flex-col gap-2">
-                  <RestrictionSwitch label="Vegano(a)" />
-                  <RestrictionSwitch label="Vegetariano(a)" active />
-                  <RestrictionSwitch label="Sem lactose" />
-                  <RestrictionSwitch label="Sem glúten" />
+                  <Switch
+                    label="Vegano(a)"
+                    state={restrictions.vegan ? "active" : "inactive"}
+                    onClick={() =>
+                      setRestrictions((current) => ({
+                        ...current,
+                        vegan: !current.vegan,
+                      }))
+                    }
+                  />
+                  <Switch
+                    label="Vegetariano(a)"
+                    state={restrictions.vegetarian ? "active" : "inactive"}
+                    onClick={() =>
+                      setRestrictions((current) => ({
+                        ...current,
+                        vegetarian: !current.vegetarian,
+                      }))
+                    }
+                  />
+                  <Switch
+                    label="Sem lactose"
+                    state={restrictions.lactoseFree ? "active" : "inactive"}
+                    onClick={() =>
+                      setRestrictions((current) => ({
+                        ...current,
+                        lactoseFree: !current.lactoseFree,
+                      }))
+                    }
+                  />
+                  <Switch
+                    label="Sem glúten"
+                    state={restrictions.glutenFree ? "active" : "inactive"}
+                    onClick={() =>
+                      setRestrictions((current) => ({
+                        ...current,
+                        glutenFree: !current.glutenFree,
+                      }))
+                    }
+                  />
                 </div>
               </div>
             </div>
 
-            <OutlineButton tone="primary" icon={<Plus className="size-4" />}>
+            <Button
+              intent="outlinePrimary"
+              size="small"
+              leadingIcon={<Plus className="size-4" />}
+            >
               Adicionar convidado
-            </OutlineButton>
+            </Button>
           </div>
 
-          <button
-            type="button"
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-primary px-3.5"
+          <Button
+            intent="default"
+            size="default"
+            trailingIcon={
+              <ChevronRight className="size-3.5 text-primary-contrast" />
+            }
+            className="w-full"
           >
-            <span className="text-primary-contrast/0">○</span>
-            <span className="font-sans text-base font-bold text-primary-contrast">
-              CONFIRMAR PRESENÇA
-            </span>
-            <ChevronRight className="size-3.5 text-primary-contrast" />
-          </button>
+            CONFIRMAR PRESENÇA
+          </Button>
         </div>
       </section>
     </main>

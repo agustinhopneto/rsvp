@@ -5,7 +5,7 @@ import { tv, type VariantProps } from "tailwind-variants";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = tv({
-  base: "inline-flex items-center justify-center gap-2 rounded-xl border text-sm font-bold outline-none transition disabled:pointer-events-none",
+  base: "inline-flex w-fit cursor-pointer items-center justify-center gap-2 rounded-xl border text-sm font-bold outline-none transition-all duration-200 ease-out disabled:pointer-events-none disabled:cursor-not-allowed",
   variants: {
     intent: {
       default: "",
@@ -27,7 +27,8 @@ const buttonVariants = tv({
     {
       intent: "default",
       state: "default",
-      className: "border-transparent bg-primary text-primary-contrast",
+      className:
+        "border-transparent bg-primary text-primary-contrast hover:-translate-y-px hover:shadow-[0_0_8px_rgba(102,238,255,0.53)]",
     },
     {
       intent: "default",
@@ -48,7 +49,8 @@ const buttonVariants = tv({
     {
       intent: "outlinePrimary",
       state: "default",
-      className: "border-primary bg-transparent text-primary",
+      className:
+        "border-primary bg-transparent text-primary hover:-translate-y-px hover:bg-primary-soft hover:shadow-[0_0_8px_rgba(102,238,255,0.53)]",
     },
     {
       intent: "outlinePrimary",
@@ -69,7 +71,8 @@ const buttonVariants = tv({
     {
       intent: "outlineSecondary",
       state: "default",
-      className: "border-accent bg-transparent text-accent",
+      className:
+        "border-accent bg-transparent text-accent hover:-translate-y-px hover:bg-accent-soft hover:shadow-[0_0_8px_rgba(255,79,163,0.53)]",
     },
     {
       intent: "outlineSecondary",

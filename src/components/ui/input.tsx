@@ -1,10 +1,11 @@
-import type { ComponentProps } from "react";
+import { useMemo, type ComponentProps } from "react";
 import { tv, type VariantProps } from "tailwind-variants";
+import { withMask } from "use-mask-input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 
 const inputVariants = tv({
-  base: "flex h-12 w-full items-center rounded-xl border bg-background px-3 text-base font-medium text-muted-foreground outline-none transition-colors",
+  base: "flex h-12 w-full items-center rounded-xl border bg-background px-3 text-base font-medium text-foreground placeholder:text-muted-foreground outline-none transition-all duration-200 ease-out focus:border-primary focus:shadow-[0_0_0_1px_rgba(102,238,255,0.95)]",
   variants: {
     state: {
       default: "border-field-border",
@@ -18,12 +19,18 @@ const inputVariants = tv({
   },
 });
 
-type InputFieldProps = ComponentProps<"input"> & VariantProps<typeof inputVariants>;
+type InputFieldProps = ComponentProps<"input"> &
+  VariantProps<typeof inputVariants> & {
+    mask?: string | string[];
+  };
 
-function InputField({ className, state, ...props }: InputFieldProps) {
+function InputField({ className, state, mask, ...props }: InputFieldProps) {
+  const maskRef = useMemo(() => (mask ? withMask(mask) : undefined), [mask]);
+
   return (
     <input
       data-slot="input-field"
+      ref={maskRef}
       className={cn(inputVariants({ state }), className)}
       disabled={props.disabled || state === "disabled"}
       {...props}
@@ -53,9 +60,16 @@ export function Input({
           ? "disabled"
           : "default";
 
+  const labelClassName =
+    state === "default"
+      ? "transition-colors duration-200 ease-out group-focus-within:text-primary"
+      : undefined;
+
   return (
-    <div className="flex w-full flex-col gap-1.5" data-slot="input-root">
-      <Label variant={labelVariant}>{label}</Label>
+    <div className="group flex w-full flex-col gap-1" data-slot="input-root">
+      <Label variant={labelVariant} className={labelClassName}>
+        {label}
+      </Label>
       <InputField state={state} className={className} {...props} />
       {state === "error" && errorMessage ? (
         <p className="text-sm font-semibold text-accent">{errorMessage}</p>

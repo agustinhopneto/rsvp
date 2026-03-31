@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
 :root {
   --background: #050712;
@@ -76,4 +77,34 @@ body {
     radial-gradient(circle at 15% 10%, rgb(102 238 255 / 12%), transparent 22%),
     radial-gradient(circle at 85% 5%, rgb(255 79 163 / 16%), transparent 20%),
     linear-gradient(180deg, #050712 0%, #070b17 100%);
+}
+
+@keyframes neon-flicker {
+  0%,
+  19%,
+  21%,
+  23%,
+  25%,
+  54%,
+  56%,
+  100% {
+    text-shadow:
+      0 0 2px rgb(102 238 255 / 85%),
+      0 0 8px rgb(102 238 255 / 65%),
+      0 0 18px rgb(102 238 255 / 45%);
+    opacity: 1;
+  }
+  20%,
+  24%,
+  55% {
+    text-shadow:
+      0 0 1px rgb(102 238 255 / 40%),
+      0 0 3px rgb(102 238 255 / 25%);
+    opacity: 0.88;
+  }
+}
+
+.neon-flicker-title {
+  animation: neon-flicker 2.8s linear infinite;
+  will-change: opacity, text-shadow;
 }

@@ -62,6 +62,20 @@
           "id": "SeT42",
           "name": "mTitle",
           "fill": "#66eeff",
+          "effect": [
+            {
+              "type": "shadow",
+              "shadowType": "outer",
+              "color": "#66eeff88",
+              "blur": 8
+            },
+            {
+              "type": "shadow",
+              "shadowType": "outer",
+              "color": "#66eeff44",
+              "blur": 16
+            }
+          ],
           "textGrowth": "fixed-width",
           "width": "fill_container",
           "content": "Churrascão\ndos 30 do\nAgustinho",
@@ -419,7 +433,7 @@
                         },
                         "G8Vuy": {
                           "width": "fill_container",
-                          "y": 26
+                          "y": 24
                         },
                         "g2JKe": {
                           "content": "Seu nome completo",
@@ -436,14 +450,14 @@
                       "name": "mobPhone",
                       "height": "fit_content",
                       "x": 10,
-                      "y": 140,
+                      "y": 138,
                       "descendants": {
                         "gyZch": {
                           "content": "Telefone (zap)"
                         },
                         "G8Vuy": {
                           "width": "fill_container",
-                          "y": 26
+                          "y": 24
                         },
                         "g2JKe": {
                           "content": "(11) 99999-0000",
@@ -486,7 +500,7 @@
                               "descendants": {
                                 "kpwHj": {
                                   "content": "Vegano(a)",
-                                  "y": 2
+                                  "y": 3
                                 },
                                 "RTu7Z": {
                                   "x": 267
@@ -508,7 +522,7 @@
                               "descendants": {
                                 "vWcf5": {
                                   "content": "Vegetariano(a)",
-                                  "y": 2
+                                  "y": 3
                                 },
                                 "6WbrR": {
                                   "x": 267
@@ -530,7 +544,7 @@
                               "descendants": {
                                 "kpwHj": {
                                   "content": "Sem lactose",
-                                  "y": 2
+                                  "y": 3
                                 },
                                 "RTu7Z": {
                                   "x": 267
@@ -552,7 +566,7 @@
                               "descendants": {
                                 "kpwHj": {
                                   "content": "Sem glúten",
-                                  "y": 2
+                                  "y": 3
                                 },
                                 "RTu7Z": {
                                   "x": 267
@@ -575,7 +589,7 @@
                   "ref": "8qWnt",
                   "name": "addMobBtn",
                   "width": "fit_content",
-                  "y": 428,
+                  "y": 422,
                   "descendants": {
                     "qTfdt": {
                       "enabled": true,
@@ -601,7 +615,7 @@
               "ref": "5axEM",
               "width": "fill_container",
               "name": "submitMobBtn",
-              "y": 480,
+              "y": 474,
               "descendants": {
                 "rq5V0": {
                   "enabled": false
@@ -681,6 +695,20 @@
               "id": "2gYlz",
               "name": "dTitle",
               "fill": "#66eeff",
+              "effect": [
+                {
+                  "type": "shadow",
+                  "shadowType": "outer",
+                  "color": "#66eeff88",
+                  "blur": 8
+                },
+                {
+                  "type": "shadow",
+                  "shadowType": "outer",
+                  "color": "#66eeff44",
+                  "blur": 16
+                }
+              ],
               "textGrowth": "fixed-width",
               "width": 390,
               "content": "Churrascão\ndos 30 do\nAgustinho",
@@ -1090,7 +1118,7 @@
                             },
                             "G8Vuy": {
                               "width": "fill_container",
-                              "y": 26
+                              "y": 24
                             },
                             "g2JKe": {
                               "content": "Seu nome completo",
@@ -1113,7 +1141,7 @@
                             },
                             "G8Vuy": {
                               "width": "fill_container",
-                              "y": 26
+                              "y": 24
                             },
                             "g2JKe": {
                               "content": "(11) 99999-0000",
@@ -1158,7 +1186,7 @@
                               "descendants": {
                                 "kpwHj": {
                                   "content": "Vegano(a)",
-                                  "y": 2
+                                  "y": 3
                                 },
                                 "RTu7Z": {
                                   "x": 508
@@ -1180,7 +1208,7 @@
                               "descendants": {
                                 "vWcf5": {
                                   "content": "Vegetariano(a)",
-                                  "y": 2
+                                  "y": 3
                                 },
                                 "6WbrR": {
                                   "x": 508
@@ -1202,7 +1230,7 @@
                               "descendants": {
                                 "kpwHj": {
                                   "content": "Sem lactose",
-                                  "y": 2
+                                  "y": 3
                                 },
                                 "RTu7Z": {
                                   "x": 508
@@ -1224,7 +1252,7 @@
                               "descendants": {
                                 "kpwHj": {
                                   "content": "Sem glúten",
-                                  "y": 2
+                                  "y": 3
                                 },
                                 "RTu7Z": {
                                   "x": 508
@@ -1247,7 +1275,7 @@
                   "ref": "8qWnt",
                   "name": "addDeskBtn",
                   "width": "fit_content",
-                  "y": 355,
+                  "y": 351,
                   "descendants": {
                     "qTfdt": {
                       "enabled": true,
@@ -1274,7 +1302,7 @@
               "width": "fill_container",
               "name": "submitDeskBtn",
               "x": 64,
-              "y": 692,
+              "y": 688,
               "descendants": {
                 "rq5V0": {
                   "enabled": false
@@ -1585,7 +1613,7 @@
                     },
                     "G8Vuy": {
                       "width": "fill_container",
-                      "y": 26
+                      "y": 24
                     },
                     "g2JKe": {
                       "content": "voce@exemplo.com",
@@ -1600,7 +1628,7 @@
                   "ref": "IaOG8",
                   "width": "fill_container",
                   "name": "rPass2",
-                  "y": 88,
+                  "y": 86,
                   "height": "fit_content",
                   "descendants": {
                     "gyZch": {
@@ -1608,7 +1636,7 @@
                     },
                     "G8Vuy": {
                       "width": "fill_container",
-                      "y": 26
+                      "y": 24
                     },
                     "g2JKe": {
                       "content": "••••••••",
@@ -1623,7 +1651,7 @@
                   "ref": "5axEM",
                   "width": "fill_container",
                   "name": "rBtn2",
-                  "y": 176,
+                  "y": 172,
                   "descendants": {
                     "rq5V0": {
                       "enabled": false
@@ -2756,7 +2784,7 @@
                         },
                         "G8Vuy": {
                           "width": "fill_container",
-                          "y": 26
+                          "y": 24
                         },
                         "g2JKe": {
                           "content": "Churrascão dos 30 do Agustinho",
@@ -2780,7 +2808,7 @@
                         },
                         "G8Vuy": {
                           "width": "fill_container",
-                          "y": 26
+                          "y": 24
                         },
                         "g2JKe": {
                           "content": "Venha celebrar conosco este momento especial.",
@@ -2812,7 +2840,7 @@
                         },
                         "G8Vuy": {
                           "width": "fill_container",
-                          "y": 26
+                          "y": 24
                         },
                         "g2JKe": {
                           "content": "11 de Abril, 2026",
@@ -2836,7 +2864,7 @@
                         },
                         "G8Vuy": {
                           "width": "fill_container",
-                          "y": 26
+                          "y": 24
                         },
                         "g2JKe": {
                           "content": "14h30",
@@ -2868,7 +2896,7 @@
                         },
                         "G8Vuy": {
                           "width": "fill_container",
-                          "y": 26
+                          "y": 24
                         },
                         "g2JKe": {
                           "content": "Av. Vereador José Diniz, 599 - Salão de Festas",
@@ -2892,7 +2920,7 @@
                         },
                         "G8Vuy": {
                           "width": "fill_container",
-                          "y": 26
+                          "y": 24
                         },
                         "g2JKe": {
                           "content": "Leve só o que for beber (álcool/extra).",
@@ -2910,7 +2938,7 @@
                   "width": "fill_container",
                   "name": "fMap",
                   "x": 20,
-                  "y": 290,
+                  "y": 284,
                   "height": "fit_content",
                   "descendants": {
                     "gyZch": {
@@ -2918,7 +2946,7 @@
                     },
                     "G8Vuy": {
                       "width": "fill_container",
-                      "y": 26
+                      "y": 24
                     },
                     "g2JKe": {
                       "content": "https://maps.google.com/...",
@@ -3387,7 +3415,7 @@
                     },
                     "G8Vuy": {
                       "width": "fill_container",
-                      "y": 26
+                      "y": 24
                     },
                     "g2JKe": {
                       "content": "Ana Santos",
@@ -3412,7 +3440,7 @@
                     },
                     "G8Vuy": {
                       "width": "fill_container",
-                      "y": 26
+                      "y": 24
                     },
                     "g2JKe": {
                       "content": "(11) 99999-0000",
@@ -3468,7 +3496,7 @@
                           "descendants": {
                             "vWcf5": {
                               "content": "Sem lactose",
-                              "y": 2
+                              "y": 3
                             },
                             "6WbrR": {
                               "x": 320
@@ -3490,7 +3518,7 @@
                           "descendants": {
                             "vWcf5": {
                               "content": "Sem glúten",
-                              "y": 2
+                              "y": 3
                             },
                             "6WbrR": {
                               "x": 320
@@ -3512,7 +3540,7 @@
                           "descendants": {
                             "kpwHj": {
                               "content": "Vegetariano(a)",
-                              "y": 2
+                              "y": 3
                             },
                             "RTu7Z": {
                               "x": 320
@@ -3534,7 +3562,7 @@
                           "descendants": {
                             "kpwHj": {
                               "content": "Vegano(a)",
-                              "y": 2
+                              "y": 3
                             },
                             "RTu7Z": {
                               "x": 320
@@ -3838,7 +3866,7 @@
                   "fill": "#ebefff",
                   "content": "Label default",
                   "fontFamily": "Outfit",
-                  "fontSize": 16,
+                  "fontSize": 14,
                   "fontWeight": "600"
                 },
                 {
@@ -3849,7 +3877,7 @@
                   "fill": "#66eeff",
                   "content": "Label primary",
                   "fontFamily": "Outfit",
-                  "fontSize": 16,
+                  "fontSize": 14,
                   "fontWeight": "600"
                 },
                 {
@@ -3860,7 +3888,7 @@
                   "fill": "#ff4fa3",
                   "content": "Label error",
                   "fontFamily": "Outfit",
-                  "fontSize": 16,
+                  "fontSize": 14,
                   "fontWeight": "600"
                 },
                 {
@@ -3871,7 +3899,7 @@
                   "fill": "#7a8198",
                   "content": "Label disabled",
                   "fontFamily": "Outfit",
-                  "fontSize": 16,
+                  "fontSize": 14,
                   "fontWeight": "600"
                 }
               ]
@@ -5588,7 +5616,7 @@
                   "ref": "bhmSW",
                   "content": "Switch ativo",
                   "name": "swActiveLbl",
-                  "y": 2
+                  "y": 3
                 },
                 {
                   "type": "frame",
@@ -5631,7 +5659,7 @@
                   "ref": "bhmSW",
                   "content": "Switch inativo",
                   "name": "swInactiveLbl",
-                  "y": 2
+                  "y": 3
                 },
                 {
                   "type": "frame",
