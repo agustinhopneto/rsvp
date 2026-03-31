@@ -1,9 +1,4 @@
-import {
-  ChevronRight,
-  Circle,
-  Plus,
-  Trash2,
-} from "lucide-react";
+import { ChevronRight, Circle, Plus, Trash2 } from "lucide-react";
 import {
   Badge,
   Button,
@@ -14,8 +9,16 @@ import {
 } from "@/components/ui";
 
 const buttonIntents = [
-  { key: "outlinePrimary", label: "outline-primary", icon: <Plus className="size-4" /> },
-  { key: "outlineSecondary", label: "outline-secondary", icon: <Trash2 className="size-4" /> },
+  {
+    key: "outlinePrimary",
+    label: "outline-primary",
+    icon: <Plus className="size-4" />,
+  },
+  {
+    key: "outlineSecondary",
+    label: "outline-secondary",
+    icon: <Trash2 className="size-4" />,
+  },
   { key: "default", label: "default", icon: <Circle className="size-3.5" /> },
 ] as const;
 
@@ -58,8 +61,14 @@ export default function DesignSystemPage() {
                         intent={intent.key}
                         size={size}
                         state={state}
-                        leadingIcon={state === "loading" ? undefined : intent.icon}
-                        trailingIcon={<ChevronRight className={size === "small" ? "size-3.5" : "size-4"} />}
+                        leadingIcon={
+                          state === "loading" ? undefined : intent.icon
+                        }
+                        trailingIcon={
+                          <ChevronRight
+                            className={size === "small" ? "size-3.5" : "size-4"}
+                          />
+                        }
                         loading={state === "loading"}
                       >
                         {intent.key === "default"
@@ -74,7 +83,7 @@ export default function DesignSystemPage() {
                               ? "Botão primário"
                               : "Botão secundário"}
                       </Button>
-                    ))
+                    )),
                   )}
                 </div>
               </div>
@@ -119,7 +128,7 @@ export default function DesignSystemPage() {
           <Typography as="h2" variant="status">
             Switches
           </Typography>
-          <div className="mt-4 grid gap-3 md:w-[280px]">
+          <div className="mt-4 grid gap-3 md:w-70">
             <Switch label="Switch ativo" state="active" />
             <Switch label="Switch inativo" state="inactive" />
           </div>
