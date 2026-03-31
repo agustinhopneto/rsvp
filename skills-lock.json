@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "skills": {
+    "frontend-design": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "computedHash": "063a0e6448123cd359ad0044cc46b0e490cc7964d45ef4bb9fd842bd2ffbca67"
+    },
+    "next-best-practices": {
+      "source": "vercel-labs/next-skills",
+      "sourceType": "github",
+      "computedHash": "515ba75178bd44875812d9a560bdf14651f86709f89cf1d4f209638e879807f3"
+    },
+    "pencil-design": {
+      "source": "chiroro-jr/pencil-design-skill",
+      "sourceType": "github",
+      "computedHash": "d85c4365810524de5ef0be5684e9e267556e083856e61e837470ac4d04ba5934"
+    },
+    "supabase": {
+      "source": "mindrally/skills",
+      "sourceType": "github",
+      "computedHash": "fb5a348e5e4bc0d49d378e8340123bfcd778de14f29dac9d45cff7edc469fa6e"
+    }
+  }
+}

@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+:root {
+  --background: #050712;
+  --surface: #0a0f1d;
+  --foreground: #ebefff;
+  --muted-foreground: #7a8198;
+  --subtle-foreground: #7c8399;
+  --detail-foreground: #d6dcf1;
+  --primary: #66eeff;
+  --accent: #ff4fa3;
+  --primary-soft: #66eeff22;
+  --accent-soft: #ff4fa322;
+  --border: #1e2738;
+  --field-border: #1b2435;
+  --switch-border: #2a3347;
+  --switch-knob: #4f5b78;
+  --primary-contrast: #1d2a38;
+  --disabled-bg: #3b4459;
+  --status-confirmed: #4ade80;
+  --status-confirmed-soft: #22c55e33;
+  --status-maybe: #facc15;
+  --status-maybe-soft: #eab30833;
+  --status-declined: #f87171;
+  --status-declined-soft: #ef444433;
+  --ring: #66eeff;
+  --danger: #ff6b9e;
+  --radius: 0.75rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-foreground: var(--foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-subtle-foreground: var(--subtle-foreground);
+  --color-detail-foreground: var(--detail-foreground);
+  --color-primary: var(--primary);
+  --color-accent: var(--accent);
+  --color-primary-soft: var(--primary-soft);
+  --color-accent-soft: var(--accent-soft);
+  --color-border: var(--border);
+  --color-field-border: var(--field-border);
+  --color-switch-border: var(--switch-border);
+  --color-switch-knob: var(--switch-knob);
+  --color-primary-contrast: var(--primary-contrast);
+  --color-disabled-bg: var(--disabled-bg);
+  --color-status-confirmed: var(--status-confirmed);
+  --color-status-confirmed-soft: var(--status-confirmed-soft);
+  --color-status-maybe: var(--status-maybe);
+  --color-status-maybe-soft: var(--status-maybe-soft);
+  --color-status-declined: var(--status-declined);
+  --color-status-declined-soft: var(--status-declined-soft);
+  --color-ring: var(--ring);
+  --color-danger: var(--danger);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: var(--font-outfit);
+  --font-display: var(--font-space-grotesk);
+}
+
+* {
+  border-color: var(--border);
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  color: var(--foreground);
+  background:
+    radial-gradient(circle at 15% 10%, rgb(102 238 255 / 12%), transparent 22%),
+    radial-gradient(circle at 85% 5%, rgb(255 79 163 / 16%), transparent 20%),
+    linear-gradient(180deg, #050712 0%, #070b17 100%);
+}

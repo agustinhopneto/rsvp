@@ -1873,7 +1873,9 @@
                           "name": "rf1",
                           "descendants": {
                             "xrMqt": {
-                              "content": "Vegano(a)"
+                              "content": "Vegano(a)",
+                              "x": 8,
+                              "y": 3
                             }
                           }
                         },
@@ -1898,9 +1900,12 @@
                           "ref": "MYVEY",
                           "width": "fit_content",
                           "name": "rf2",
+                          "x": 175,
                           "descendants": {
                             "xrMqt": {
-                              "content": "Sem lactose"
+                              "content": "Sem lactose",
+                              "x": 8,
+                              "y": 3
                             }
                           }
                         },
@@ -1926,9 +1931,12 @@
                       "type": "ref",
                       "ref": "eS0Zt",
                       "x": 984,
+                      "width": "fit_content",
                       "descendants": {
                         "ckesO": {
-                          "content": "Mostrando 12 de 25"
+                          "content": "Mostrando 12 de 25",
+                          "x": 8,
+                          "y": 3
                         }
                       }
                     }
@@ -1941,6 +1949,7 @@
                   "name": "statusFilterLabel",
                   "width": "fit_content",
                   "y": 58,
+                  "height": "fit_content",
                   "descendants": {
                     "k3y5N": {
                       "content": "Filtrar por status"
@@ -1963,7 +1972,9 @@
                       "name": "sf1",
                       "descendants": {
                         "tmLJr": {
-                          "content": "Confirmado"
+                          "content": "Confirmado",
+                          "x": 8,
+                          "y": 3
                         }
                       }
                     },
@@ -1973,16 +1984,27 @@
                       "ref": "BcTeO",
                       "width": "fit_content",
                       "name": "sf2",
+                      "x": 84,
                       "descendants": {
                         "bq6M0": {
-                          "content": "Talvez"
+                          "content": "Talvez",
+                          "x": 8,
+                          "y": 3
                         }
                       }
                     },
                     {
                       "id": "GDtYd",
                       "type": "ref",
-                      "ref": "uqd8D"
+                      "ref": "uqd8D",
+                      "width": "fit_content",
+                      "x": 140,
+                      "descendants": {
+                        "f7stQ": {
+                          "x": 8,
+                          "y": 3
+                        }
+                      }
                     }
                   ]
                 }
@@ -2081,6 +2103,7 @@
                       "name": "stHead",
                       "x": 704,
                       "y": 12,
+                      "height": "fit_content",
                       "descendants": {
                         "2tAG8": {
                           "content": "Status"
@@ -2218,7 +2241,9 @@
                           "width": "fit_content",
                           "descendants": {
                             "tmLJr": {
-                              "content": "Confirmado"
+                              "content": "Confirmado",
+                              "x": 8,
+                              "y": 3
                             }
                           }
                         }
@@ -2352,7 +2377,9 @@
                           "width": "fit_content",
                           "descendants": {
                             "bq6M0": {
-                              "content": "Talvez"
+                              "content": "Talvez",
+                              "x": 8,
+                              "y": 3
                             }
                           }
                         }
@@ -2480,7 +2507,9 @@
                           "width": "fit_content",
                           "descendants": {
                             "Ya90I": {
-                              "content": "Não irá"
+                              "content": "Não irá",
+                              "x": 8,
+                              "y": 3
                             }
                           }
                         }
@@ -3376,6 +3405,7 @@
                   "name": "r2a",
                   "y": 0,
                   "height": "fit_content",
+                  "x": 372,
                   "descendants": {
                     "gyZch": {
                       "content": "Telefone"
@@ -3434,12 +3464,18 @@
                           "width": "fill_container",
                           "name": "rs1",
                           "y": 0,
+                          "height": "fit_content",
                           "descendants": {
                             "vWcf5": {
-                              "content": "Sem lactose"
+                              "content": "Sem lactose",
+                              "y": 2
                             },
                             "6WbrR": {
                               "x": 320
+                            },
+                            "Ho2I6": {
+                              "x": 20,
+                              "y": 3
                             }
                           }
                         },
@@ -3450,12 +3486,18 @@
                           "width": "fill_container",
                           "name": "rs2",
                           "y": 30,
+                          "height": "fit_content",
                           "descendants": {
                             "vWcf5": {
-                              "content": "Sem glúten"
+                              "content": "Sem glúten",
+                              "y": 2
                             },
                             "6WbrR": {
                               "x": 320
+                            },
+                            "Ho2I6": {
+                              "x": 20,
+                              "y": 3
                             }
                           }
                         },
@@ -3466,12 +3508,18 @@
                           "width": "fill_container",
                           "name": "rs3",
                           "y": 60,
+                          "height": "fit_content",
                           "descendants": {
                             "kpwHj": {
-                              "content": "Vegetariano(a)"
+                              "content": "Vegetariano(a)",
+                              "y": 2
                             },
                             "RTu7Z": {
                               "x": 320
+                            },
+                            "H0Oaq": {
+                              "x": 2,
+                              "y": 3
                             }
                           }
                         },
@@ -3482,12 +3530,18 @@
                           "width": "fill_container",
                           "name": "rs4",
                           "y": 90,
+                          "height": "fit_content",
                           "descendants": {
                             "kpwHj": {
-                              "content": "Vegano(a)"
+                              "content": "Vegano(a)",
+                              "y": 2
                             },
                             "RTu7Z": {
                               "x": 320
+                            },
+                            "H0Oaq": {
+                              "x": 2,
+                              "y": 3
                             }
                           }
                         }
@@ -3523,21 +3577,40 @@
                           "id": "5D9aE",
                           "type": "ref",
                           "ref": "CEx7N",
+                          "width": "fit_content",
                           "descendants": {
                             "tmLJr": {
-                              "content": "Confirmado"
+                              "content": "Confirmado",
+                              "x": 8,
+                              "y": 3
                             }
                           }
                         },
                         {
                           "id": "AIvQu",
                           "type": "ref",
-                          "ref": "kkAf2"
+                          "ref": "kkAf2",
+                          "width": "fit_content",
+                          "x": 84,
+                          "descendants": {
+                            "GG5LX": {
+                              "x": 8,
+                              "y": 3
+                            }
+                          }
                         },
                         {
                           "id": "LtrTo",
                           "type": "ref",
-                          "ref": "uqd8D"
+                          "ref": "uqd8D",
+                          "width": "fit_content",
+                          "x": 140,
+                          "descendants": {
+                            "f7stQ": {
+                              "x": 8,
+                              "y": 3
+                            }
+                          }
                         }
                       ]
                     }
@@ -3558,13 +3631,19 @@
                   "id": "x8iPp",
                   "type": "ref",
                   "ref": "ew09r",
+                  "width": "fit_content",
+                  "x": 408,
                   "descendants": {
                     "PkaYr": {
                       "enabled": true,
-                      "iconFontName": "arrow-left"
+                      "iconFontName": "arrow-left",
+                      "x": 14,
+                      "y": 16
                     },
                     "75cER": {
-                      "content": "Voltar"
+                      "content": "Voltar",
+                      "x": 38,
+                      "y": 14
                     },
                     "seMFX": {
                       "enabled": false
@@ -3666,12 +3745,16 @@
                   "type": "ref",
                   "ref": "XWuxI",
                   "name": "c1",
+                  "width": "fit_content",
+                  "x": 195,
                   "descendants": {
                     "y7oW3": {
                       "enabled": false
                     },
                     "4DlTt": {
-                      "content": "Cancelar"
+                      "content": "Cancelar",
+                      "x": 12,
+                      "y": 9
                     },
                     "i2zYc": {
                       "enabled": false
@@ -3683,12 +3766,16 @@
                   "type": "ref",
                   "ref": "XWuxI",
                   "name": "c2",
+                  "width": "fit_content",
+                  "x": 288,
                   "descendants": {
                     "y7oW3": {
                       "enabled": false
                     },
                     "4DlTt": {
-                      "content": "Confirmar"
+                      "content": "Confirmar",
+                      "x": 12,
+                      "y": 9
                     },
                     "i2zYc": {
                       "enabled": false
