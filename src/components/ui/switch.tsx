@@ -4,7 +4,7 @@ import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 
 const switchVariants = tv({
-  base: "relative flex h-6 w-10 items-center rounded-xl border p-0.5 transition-all duration-200 ease-out",
+  base: "relative flex h-6 w-10 cursor-pointer items-center rounded-xl border p-0.5 transition-all duration-200 ease-out",
   variants: {
     state: {
       active: "justify-end border-primary bg-primary-soft",

@@ -35,17 +35,20 @@ export default function Home() {
   });
 
   return (
-    <main className="min-h-dvh overflow-x-auto bg-background p-5">
-      <section className="grid h-255 w-350 grid-cols-2 overflow-hidden bg-background">
-        <div className="flex h-full w-full flex-col gap-6 bg-background px-16 pt-32 pb-16">
-          <Typography variant="caption" className="text-accent">
+    <main className="min-h-dvh w-full overflow-x-hidden bg-background xl:h-dvh xl:overflow-y-hidden">
+      <section className="grid min-h-dvh w-full grid-cols-1 bg-background xl:h-full xl:grid-cols-2">
+        <div className="flex h-full w-full flex-col gap-5 bg-background px-6 pt-6 pb-0 sm:px-8 sm:pt-8 xl:overflow-y-hidden xl:gap-6 xl:px-16 xl:pt-32 xl:pb-16">
+          <Typography
+            variant="caption"
+            className="text-[16px] font-semibold tracking-[1.5px] text-accent"
+          >
             {"// CONVITE.EXE v3.0 INICIADO"}
           </Typography>
 
           <Typography
             as="h1"
             variant="h1"
-            className="neon-flicker-title w-97.5 text-[60px] leading-[0.98]"
+            className="neon-flicker-title w-full text-[44px] leading-[0.98] xl:w-97.5 xl:text-[60px]"
           >
             Churrascão
             <br />
@@ -54,75 +57,118 @@ export default function Home() {
             Agustinho
           </Typography>
 
-          <Typography variant="body" className="w-90 leading-[1.3]">
+          <Typography variant="body" className="w-full leading-[1.25] xl:w-90">
             Venha celebrar conosco este momento especial. Sua presença vale mais
             que qualquer presente!
           </Typography>
 
           <GradientDivider />
 
-          <Typography
-            as="h2"
-            variant="h1"
-            className="text-[42px] text-foreground"
-          >
-            Detalhes
-          </Typography>
+          <div className="flex w-full flex-col gap-3 rounded-xl border border-border bg-surface p-4 xl:hidden">
+            <Typography as="h2" variant="h1" className="text-[28px] text-foreground">
+              Detalhes
+            </Typography>
 
-          <div className="flex w-full gap-3.5">
-            <div className="flex items-center gap-2">
+            <div className="flex w-full items-center gap-2">
               <Calendar className="size-3.5 text-accent" />
-              <Typography className="text-base font-semibold text-detail-foreground">
-                11 de Abril, 2026
+              <Typography className="w-full text-base font-semibold text-detail-foreground">
+                11 de Abril, 2026 · 14h30
               </Typography>
             </div>
+
             <div className="flex w-full items-center gap-2">
               <MapPin className="size-3.5 text-accent" />
-              <Typography className="w-full text-base font-semibold text-detail-foreground">
+              <Typography className="w-full text-base leading-[1.35] font-semibold text-detail-foreground">
                 Av. Vereador José Diniz, 599 - Salão de Festas
               </Typography>
             </div>
-          </div>
 
-          <div className="flex w-full gap-3.5">
-            <div className="flex items-center gap-2">
-              <Clock3 className="size-3.5 text-accent" />
-              <Typography className="text-base font-semibold text-detail-foreground">
-                14h30
-              </Typography>
-            </div>
             <div className="flex w-full items-center gap-2">
               <Wine className="size-3.5 text-accent" />
-              <Typography className="w-full text-base font-semibold text-detail-foreground">
+              <Typography className="w-full text-base leading-[1.35] font-semibold text-detail-foreground">
                 Leve só o que for beber (álcool/extra).
               </Typography>
             </div>
+
+            <Button
+              intent="outlinePrimary"
+              size="small"
+              leadingIcon={<MapPin className="size-4" />}
+              onClick={() =>
+                window.open(
+                  "https://maps.google.com/?q=Av.+Vereador+José+Diniz,+599",
+                  "_blank",
+                )
+              }
+            >
+              Abrir no Google Maps
+            </Button>
           </div>
 
-          <Button
-            intent="outlinePrimary"
-            size="small"
-            leadingIcon={<MapPin className="size-4" />}
-            onClick={() =>
-              window.open(
-                "https://maps.google.com/?q=Av.+Vereador+José+Diniz,+599",
-                "_blank",
-              )
-            }
-          >
-            Abrir no Google Maps
-          </Button>
+          <div className="hidden xl:flex xl:w-full xl:flex-col xl:gap-6">
+            <Typography as="h2" variant="h1" className="text-[42px] text-foreground">
+              Detalhes
+            </Typography>
 
-          <Typography className="text-base font-medium tracking-[0.7px] text-muted-foreground">
-            Feito com ♥ e Coquinha Zero
-          </Typography>
+            <div className="flex w-full gap-3.5">
+              <div className="shrink-0 flex items-center gap-2">
+                <Calendar className="size-3.5 text-accent" />
+                <Typography className="text-base font-semibold text-detail-foreground">
+                  11 de Abril, 2026
+                </Typography>
+              </div>
+              <div className="flex min-w-0 flex-1 items-center gap-2">
+                <MapPin className="size-3.5 text-accent" />
+                <Typography className="w-full text-base font-semibold text-detail-foreground">
+                  Av. Vereador José Diniz, 599 - Salão de Festas
+                </Typography>
+              </div>
+            </div>
+
+            <div className="flex w-full gap-3.5">
+              <div className="shrink-0 flex items-center gap-2">
+                <Clock3 className="size-3.5 text-accent" />
+                <Typography className="text-base font-semibold text-detail-foreground">
+                  14h30
+                </Typography>
+              </div>
+              <div className="flex min-w-0 flex-1 items-center gap-2">
+                <Wine className="size-3.5 text-accent" />
+                <Typography className="w-full text-base font-semibold text-detail-foreground">
+                  Leve só o que for beber (álcool/extra).
+                </Typography>
+              </div>
+            </div>
+
+            <Button
+              intent="outlinePrimary"
+              size="small"
+              leadingIcon={<MapPin className="size-4" />}
+              onClick={() =>
+                window.open(
+                  "https://maps.google.com/?q=Av.+Vereador+José+Diniz,+599",
+                  "_blank",
+                )
+              }
+            >
+              Abrir no Google Maps
+            </Button>
+
+            <Typography className="text-base font-medium tracking-[0.7px] text-muted-foreground">
+              Feito com ♥ e Coquinha Zero
+            </Typography>
+          </div>
         </div>
 
-        <div className="flex h-full w-full flex-col gap-6 bg-surface px-16 pt-32 pb-16">
+        <div className="flex h-full min-h-0 w-full flex-col gap-5 bg-background px-6 pt-5 pb-6 sm:px-8 sm:pb-8 xl:overflow-y-auto xl:gap-6 xl:bg-surface xl:px-16 xl:pt-32 xl:pb-16">
+          <div className="xl:hidden">
+            <GradientDivider reverse />
+          </div>
+
           <Typography
             as="h2"
             variant="h1"
-            className="w-full text-[34px] leading-none"
+            className="w-full text-[34px] leading-[1.02]"
           >
             Confirme sua presença
           </Typography>
@@ -133,19 +179,21 @@ export default function Home() {
             CONFIRMAR PRESENÇA.
           </Typography>
 
-          <GradientDivider reverse />
+          <div className="hidden xl:block">
+            <GradientDivider reverse />
+          </div>
 
-          <div className="flex w-full flex-col gap-3">
-            <Typography as="h3" variant="h1" className="text-2xl">
+          <div className="flex w-full flex-col gap-4">
+            <Typography as="h3" variant="h1" className="text-[22px] text-primary">
               Lista de convidados
             </Typography>
 
-            <div className="flex w-full flex-col gap-2.5 rounded-xl border border-border bg-surface p-3">
+            <div className="flex w-full flex-col gap-2.5 rounded-xl border border-border bg-surface p-2.5">
               <div className="flex w-full items-center justify-between">
                 <Typography
                   as="p"
                   variant="h1"
-                  className="text-lg text-foreground"
+                  className="text-[17px] text-foreground"
                 >
                   Pessoa 1
                 </Typography>
@@ -154,11 +202,11 @@ export default function Home() {
                   size="small"
                   leadingIcon={<Trash2 className="size-3.5" />}
                 >
-                  Remover convidado
+                  Remover
                 </Button>
               </div>
 
-              <div className="flex w-full gap-2.5">
+              <div className="flex w-full flex-col gap-2.5 xl:flex-row">
                 <Input
                   label="Nome completo"
                   value={guestName}
@@ -244,6 +292,10 @@ export default function Home() {
           >
             CONFIRMAR PRESENÇA
           </Button>
+
+          <Typography className="text-center text-base font-medium tracking-[0.6px] text-muted-foreground xl:hidden">
+            Feito com ♥ e Coquinha Zero
+          </Typography>
         </div>
       </section>
     </main>
