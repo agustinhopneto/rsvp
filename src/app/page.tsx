@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Calendar,
@@ -15,11 +15,27 @@ import {
   Wine,
 } from "lucide-react";
 import { Controller, useFieldArray, useForm, useWatch } from "react-hook-form";
+import { submitRsvp } from "@/actions/rsvp";
 import { Badge, Button, Input, Switch, Typography } from "@/components/ui";
 import {
   type RsvpFormValues,
   rsvpFormSchema,
 } from "@/lib/validators/rsvp-form";
+
+const initialFormValues: RsvpFormValues = {
+  guests: [
+    {
+      name: "",
+      phone: "",
+      restrictions: {
+        vegan: false,
+        vegetarian: false,
+        lactoseFree: false,
+        glutenFree: false,
+      },
+    },
+  ],
+};
 
 function GradientDivider({ reverse = false }: { reverse?: boolean }) {
   return (
@@ -40,24 +56,15 @@ export default function Home() {
 
   const [isConfirmationScreenVisible, setIsConfirmationScreenVisible] =
     useState(false);
+  const [isSubmitting, startSubmitTransition] = useTransition();
+  const [submitErrorMessage, setSubmitErrorMessage] = useState<string | null>(
+    null,
+  );
 
-  const { control, handleSubmit, setValue, formState } =
+  const { control, handleSubmit, setValue, reset, formState } =
     useForm<RsvpFormValues>({
       resolver: zodResolver(rsvpFormSchema),
-      defaultValues: {
-        guests: [
-          {
-            name: "",
-            phone: "",
-            restrictions: {
-              vegan: false,
-              vegetarian: false,
-              lactoseFree: false,
-              glutenFree: false,
-            },
-          },
-        ],
-      },
+      defaultValues: initialFormValues,
       mode: "onSubmit",
     });
 
@@ -69,8 +76,19 @@ export default function Home() {
   const guests = useWatch({ control, name: "guests" });
 
   const onSubmit = (values: RsvpFormValues) => {
-    console.log("RSVP payload (local only):", values);
-    setIsConfirmationScreenVisible(true);
+    setSubmitErrorMessage(null);
+
+    startSubmitTransition(async () => {
+      const result = await submitRsvp(values);
+
+      if (!result.ok) {
+        setSubmitErrorMessage(result.message);
+        return;
+      }
+
+      reset(initialFormValues);
+      setIsConfirmationScreenVisible(true);
+    });
   };
 
   const toggleRestriction = (
@@ -92,16 +110,7 @@ export default function Home() {
       ? formState.errors.guests.message
       : null;
 
-  const newGuestTemplate: RsvpFormValues["guests"][number] = {
-    name: "",
-    phone: "",
-    restrictions: {
-      vegan: false,
-      vegetarian: false,
-      lactoseFree: false,
-      glutenFree: false,
-    },
-  };
+  const newGuestTemplate = initialFormValues.guests[0];
 
   if (isConfirmationScreenVisible) {
     return (
@@ -306,6 +315,8 @@ export default function Home() {
 
         <form
           onSubmit={handleSubmit(onSubmit)}
+          noValidate
+          aria-busy={isSubmitting}
           className="flex h-full min-h-0 w-full flex-col gap-5 bg-background px-6 pt-5 pb-6 sm:px-8 sm:pb-8 xl:overflow-y-auto xl:gap-6 xl:bg-surface xl:px-16 xl:pt-32 xl:pb-16"
         >
           <div className="xl:hidden">
@@ -357,7 +368,7 @@ export default function Home() {
                     intent="outlineSecondary"
                     size="small"
                     leadingIcon={<Trash2 className="size-3.5" />}
-                    state={canRemoveGuest ? "default" : "disabled"}
+                    state={canRemoveGuest && !isSubmitting ? "default" : "disabled"}
                     onClick={() => remove(index)}
                   >
                     Remover
@@ -380,8 +391,14 @@ export default function Home() {
                         autoComplete={`section-guest-${index + 1} name`}
                         autoCapitalize="words"
                         enterKeyHint="next"
-                        required
-                        state={fieldState.error ? "error" : "default"}
+                        disabled={isSubmitting}
+                        state={
+                          isSubmitting
+                            ? "disabled"
+                            : fieldState.error
+                              ? "error"
+                              : "default"
+                        }
                         errorMessage={fieldState.error?.message}
                       />
                     )}
@@ -403,10 +420,16 @@ export default function Home() {
                         autoComplete={`section-guest-${index + 1} tel-national`}
                         enterKeyHint="done"
                         maxLength={15}
-                        required
                         mask="(99) 99999-9999"
                         helperMessage="Só números: a máscara é aplicada automaticamente."
-                        state={fieldState.error ? "error" : "default"}
+                        disabled={isSubmitting}
+                        state={
+                          isSubmitting
+                            ? "disabled"
+                            : fieldState.error
+                              ? "error"
+                              : "default"
+                        }
                         errorMessage={fieldState.error?.message}
                       />
                     )}
@@ -420,6 +443,7 @@ export default function Home() {
                   <div className="flex w-full flex-col gap-2">
                     <Switch
                       label="Vegano(a)"
+                      disabled={isSubmitting}
                       state={
                         guests?.[index]?.restrictions?.vegan
                           ? "active"
@@ -429,6 +453,7 @@ export default function Home() {
                     />
                     <Switch
                       label="Vegetariano(a)"
+                      disabled={isSubmitting}
                       state={
                         guests?.[index]?.restrictions?.vegetarian
                           ? "active"
@@ -438,6 +463,7 @@ export default function Home() {
                     />
                     <Switch
                       label="Sem lactose"
+                      disabled={isSubmitting}
                       state={
                         guests?.[index]?.restrictions?.lactoseFree
                           ? "active"
@@ -447,6 +473,7 @@ export default function Home() {
                     />
                     <Switch
                       label="Sem glúten"
+                      disabled={isSubmitting}
                       state={
                         guests?.[index]?.restrictions?.glutenFree
                           ? "active"
@@ -471,7 +498,7 @@ export default function Home() {
               size="small"
               className="shrink-0"
               leadingIcon={<Plus className="size-4" />}
-              state={canAddGuest ? "default" : "disabled"}
+              state={canAddGuest && !isSubmitting ? "default" : "disabled"}
               onClick={() =>
                 append({
                   ...newGuestTemplate,
@@ -483,16 +510,24 @@ export default function Home() {
             </Button>
           </div>
 
+          {submitErrorMessage ? (
+            <Typography className="text-sm font-semibold text-accent">
+              {submitErrorMessage}
+            </Typography>
+          ) : null}
+
           <Button
             type="submit"
             intent="default"
             size="default"
+            loading={isSubmitting}
+            state={isSubmitting ? "loading" : "default"}
             className="w-full shrink-0"
             trailingIcon={
               <ChevronRight className="size-3.5 text-primary-contrast" />
             }
           >
-            CONFIRMAR PRESENÇA
+            {isSubmitting ? "ENVIANDO..." : "CONFIRMAR PRESENÇA"}
           </Button>
 
           <Typography className="text-center text-base font-medium tracking-[0.6px] text-muted-foreground xl:hidden">

@@ -1,42 +1,78 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { z } from "zod";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
+import {
+  rsvpFormSchema,
+  type RsvpFormValues,
+} from "@/lib/validators/rsvp-form";
 
-const submitRsvpSchema = z.object({
-  guestName: z.string().min(3).max(120),
-  email: z.email().max(255),
-  phone: z.string().max(40).optional(),
-  companionsCount: z.coerce.number().int().min(0).max(8),
-  dietaryRestrictions: z.string().max(255).optional(),
-});
+export type SubmitRsvpResult =
+  | {
+      ok: true;
+      submissionId: string;
+    }
+  | {
+      ok: false;
+      message: string;
+    };
 
-export async function submitRsvp(formData: FormData) {
-  const parsed = submitRsvpSchema.safeParse({
-    guestName: formData.get("guestName"),
-    email: formData.get("email"),
-    phone: formData.get("phone") || undefined,
-    companionsCount: formData.get("companionsCount"),
-    dietaryRestrictions: formData.get("dietaryRestrictions") || undefined,
-  });
+export async function submitRsvp(
+  values: RsvpFormValues,
+): Promise<SubmitRsvpResult> {
+  const parsed = rsvpFormSchema.safeParse(values);
 
   if (!parsed.success) {
-    return;
+    return {
+      ok: false,
+      message: parsed.error.issues[0]?.message ?? "Dados inválidos no formulário.",
+    };
   }
 
+  const submissionId = crypto.randomUUID();
+  const nowIso = new Date().toISOString();
+  const rows = parsed.data.guests.map((guest, index) => ({
+    submission_id: submissionId,
+    guest_index: index + 1,
+    guest_name: guest.name.trim().toUpperCase(),
+    phone: guest.phone.trim(),
+    is_vegan: guest.restrictions.vegan,
+    is_vegetarian: guest.restrictions.vegetarian,
+    is_lactose_free: guest.restrictions.lactoseFree,
+    is_gluten_free: guest.restrictions.glutenFree,
+    source: "web",
+    submitted_at: nowIso,
+  }));
+
   const supabase = await createServerSupabaseClient();
-  const { error } = await supabase.from("rsvps").insert({
-    guest_name: parsed.data.guestName,
-    email: parsed.data.email,
-    phone: parsed.data.phone ?? null,
-    companions_count: parsed.data.companionsCount,
-    dietary_restrictions: parsed.data.dietaryRestrictions ?? null,
-  });
+  const { error } = await supabase.from("rsvp_confirmations").insert(rows);
 
   if (error) {
-    throw new Error(`Failed to save RSVP: ${error.message}`);
+    console.error("Failed to persist RSVP confirmation", {
+      code: error.code,
+      message: error.message,
+      details: error.details,
+    });
+
+    if (error.code === "42P01") {
+      return {
+        ok: false,
+        message:
+          "A tabela de RSVP ainda não existe no banco. Rode a migration SQL antes de enviar confirmações.",
+      };
+    }
+
+    return {
+      ok: false,
+      message:
+        "Não foi possível salvar sua confirmação agora. Tente novamente em instantes.",
+    };
   }
 
   revalidatePath("/");
+
+  return {
+    ok: true,
+    submissionId,
+  };
 }

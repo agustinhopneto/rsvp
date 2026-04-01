@@ -35,6 +35,15 @@ Preencha:
 npm run dev
 ```
 
+## Banco de dados (Supabase)
+
+Para habilitar persistência do RSVP, aplique a migration:
+
+- Arquivo: `supabase/migrations/202604011715_create_rsvp_confirmations.sql`
+- No Supabase SQL Editor, cole e execute o conteúdo do arquivo
+
+Isso cria a tabela `public.rsvp_confirmations`, índices e política RLS para insert via `anon/authenticated`.
+
 ## Scripts
 
 - `npm run dev` - ambiente local
