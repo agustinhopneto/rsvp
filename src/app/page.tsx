@@ -421,7 +421,6 @@ export default function Home() {
                         enterKeyHint="done"
                         maxLength={15}
                         mask="(99) 99999-9999"
-                        helperMessage="Só números: a máscara é aplicada automaticamente."
                         disabled={isSubmitting}
                         state={
                           isSubmitting
