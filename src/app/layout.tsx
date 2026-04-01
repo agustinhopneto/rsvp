@@ -14,12 +14,42 @@ const spaceGrotesk = Space_Grotesk({
   weight: ["500", "700"],
 });
 
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
+
+const eventTitle = "Churrascão dos 30 do Agustinho";
+const eventDescription =
+  "Você foi convidado! 11 de Abril de 2026 às 14h30, na Av. Vereador José Diniz, 599. Confirme sua presença em poucos segundos.";
+
 export const metadata: Metadata = {
-  title: "RSVP Cyberpunk",
-  description: "Projeto full-stack Next.js + Supabase para RSVP.",
+  metadataBase: new URL(siteUrl),
+  title: `${eventTitle} | RSVP`,
+  description: eventDescription,
   icons: {
     icon: "/icon",
     shortcut: "/icon",
+  },
+  openGraph: {
+    title: `${eventTitle} | RSVP`,
+    description: eventDescription,
+    type: "website",
+    locale: "pt_BR",
+    siteName: "RSVP Cyberpunk",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: `${eventTitle} - Convite e confirmação de presença`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${eventTitle} | RSVP`,
+    description: eventDescription,
+    images: ["/opengraph-image"],
   },
 };
 
