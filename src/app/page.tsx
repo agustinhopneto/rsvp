@@ -370,11 +370,17 @@ export default function Home() {
                     name={`guests.${index}.name`}
                     render={({ field: controllerField, fieldState }) => (
                       <Input
+                        id={`guest-${index + 1}-name`}
                         label="Nome completo"
+                        name={controllerField.name}
                         value={controllerField.value}
                         onChange={controllerField.onChange}
                         onBlur={controllerField.onBlur}
                         placeholder="Seu nome completo"
+                        autoComplete={`section-guest-${index + 1} name`}
+                        autoCapitalize="words"
+                        enterKeyHint="next"
+                        required
                         state={fieldState.error ? "error" : "default"}
                         errorMessage={fieldState.error?.message}
                       />
@@ -385,12 +391,21 @@ export default function Home() {
                     name={`guests.${index}.phone`}
                     render={({ field: controllerField, fieldState }) => (
                       <Input
+                        id={`guest-${index + 1}-phone`}
                         label="Telefone (zap)"
+                        name={controllerField.name}
                         value={controllerField.value}
                         onChange={controllerField.onChange}
                         onBlur={controllerField.onBlur}
                         placeholder="(11) 99999-0000"
+                        type="tel"
+                        inputMode="numeric"
+                        autoComplete={`section-guest-${index + 1} tel-national`}
+                        enterKeyHint="done"
+                        maxLength={15}
+                        required
                         mask="(99) 99999-9999"
+                        helperMessage="Só números: a máscara é aplicada automaticamente."
                         state={fieldState.error ? "error" : "default"}
                         errorMessage={fieldState.error?.message}
                       />

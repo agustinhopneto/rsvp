@@ -1,4 +1,4 @@
-import { useMemo, type ComponentProps } from "react";
+import { useId, useMemo, type ComponentProps } from "react";
 import { tv, type VariantProps } from "tailwind-variants";
 import { withMask } from "use-mask-input";
 import { Label } from "@/components/ui/label";
@@ -43,15 +43,22 @@ type InputProps = Omit<InputFieldProps, "state"> & {
   label: string;
   state?: VariantProps<typeof inputVariants>["state"];
   errorMessage?: string;
+  helperMessage?: string;
 };
 
 export function Input({
   label,
   state = "default",
   errorMessage,
+  helperMessage,
   className,
   ...props
 }: InputProps) {
+  const generatedId = useId();
+  const inputId = props.id ?? generatedId;
+  const labelId = `${inputId}-label`;
+  const messageId = `${inputId}-message`;
+
   const labelVariant =
     state === "focus"
       ? "primary"
@@ -68,12 +75,26 @@ export function Input({
 
   return (
     <div className="group flex w-full flex-col gap-1" data-slot="input-root">
-      <Label variant={labelVariant} className={labelClassName}>
+      <Label id={labelId} variant={labelVariant} className={labelClassName}>
         {label}
       </Label>
-      <InputField state={state} className={className} {...props} />
+      <InputField
+        id={inputId}
+        state={state}
+        className={className}
+        aria-invalid={state === "error" ? "true" : "false"}
+        aria-labelledby={labelId}
+        aria-describedby={errorMessage || helperMessage ? messageId : undefined}
+        {...props}
+      />
       {state === "error" && errorMessage ? (
-        <p className="text-sm font-semibold text-accent">{errorMessage}</p>
+        <p id={messageId} className="text-sm font-semibold text-accent">
+          {errorMessage}
+        </p>
+      ) : helperMessage ? (
+        <p id={messageId} className="text-sm font-medium text-muted-foreground">
+          {helperMessage}
+        </p>
       ) : null}
     </div>
   );
