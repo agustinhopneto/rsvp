@@ -10,7 +10,8 @@ const inputVariants = tv({
     state: {
       default: "border-field-border",
       focus: "border-primary",
-      error: "border-accent",
+      error:
+        "!border-accent focus:!border-accent focus:shadow-[0_0_0_1px_rgba(255,79,163,0.95)]",
       disabled: "border-disabled-bg opacity-60",
     },
   },

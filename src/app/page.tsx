@@ -1,16 +1,25 @@
 "use client";
 
 import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Calendar,
+  Check,
   ChevronRight,
   Clock3,
+  Map,
   MapPin,
+  Navigation,
   Plus,
   Trash2,
   Wine,
 } from "lucide-react";
-import { Button, Input, Switch, Typography } from "@/components/ui";
+import { Controller, useFieldArray, useForm, useWatch } from "react-hook-form";
+import { Badge, Button, Input, Switch, Typography } from "@/components/ui";
+import {
+  type RsvpFormValues,
+  rsvpFormSchema,
+} from "@/lib/validators/rsvp-form";
 
 function GradientDivider({ reverse = false }: { reverse?: boolean }) {
   return (
@@ -25,14 +34,131 @@ function GradientDivider({ reverse = false }: { reverse?: boolean }) {
 }
 
 export default function Home() {
-  const [guestName, setGuestName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [restrictions, setRestrictions] = useState({
-    vegan: false,
-    vegetarian: true,
-    lactoseFree: false,
-    glutenFree: false,
+  const GOOGLE_MAPS_URL =
+    "https://maps.google.com/?q=Av.+Vereador+José+Diniz,+599";
+  const WAZE_URL = "https://waze.com/ul?q=Av.+Vereador+José+Diniz,+599";
+
+  const [isConfirmationScreenVisible, setIsConfirmationScreenVisible] =
+    useState(false);
+
+  const { control, handleSubmit, setValue, formState } =
+    useForm<RsvpFormValues>({
+      resolver: zodResolver(rsvpFormSchema),
+      defaultValues: {
+        guests: [
+          {
+            name: "",
+            phone: "",
+            restrictions: {
+              vegan: false,
+              vegetarian: false,
+              lactoseFree: false,
+              glutenFree: false,
+            },
+          },
+        ],
+      },
+      mode: "onSubmit",
+    });
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "guests",
   });
+
+  const guests = useWatch({ control, name: "guests" });
+
+  const onSubmit = (values: RsvpFormValues) => {
+    console.log("RSVP payload (local only):", values);
+    setIsConfirmationScreenVisible(true);
+  };
+
+  const toggleRestriction = (
+    guestIndex: number,
+    key: keyof RsvpFormValues["guests"][number]["restrictions"],
+  ) => {
+    const currentValue = guests?.[guestIndex]?.restrictions?.[key] ?? false;
+    setValue(`guests.${guestIndex}.restrictions.${key}`, !currentValue, {
+      shouldDirty: true,
+    });
+  };
+
+  const canAddGuest = fields.length < 10;
+
+  const canRemoveGuest = fields.length > 1;
+
+  const guestsRootError =
+    typeof formState.errors.guests?.message === "string"
+      ? formState.errors.guests.message
+      : null;
+
+  const newGuestTemplate: RsvpFormValues["guests"][number] = {
+    name: "",
+    phone: "",
+    restrictions: {
+      vegan: false,
+      vegetarian: false,
+      lactoseFree: false,
+      glutenFree: false,
+    },
+  };
+
+  if (isConfirmationScreenVisible) {
+    return (
+      <main className="min-h-dvh w-full bg-background p-6 md:p-10">
+        <section className="flex min-h-[calc(100dvh-3rem)] w-full items-center justify-center md:min-h-[calc(100dvh-5rem)]">
+          <div className="flex min-h-full w-full flex-col items-center justify-center gap-[18px] rounded-xl border border-border bg-surface px-5 py-7 text-center md:min-h-0 md:max-w-[700px] md:gap-5 md:px-10 md:py-9">
+            <Badge
+              family="restriction"
+              variant="filled"
+              className="bg-primary-soft text-[11px] font-semibold tracking-[0.35px] text-primary"
+            >
+              CONFIRMAÇÃO RECEBIDA
+            </Badge>
+
+            <div className="flex size-16 items-center justify-center rounded-full border border-primary bg-primary-soft md:size-[72px]">
+              <Check className="size-[30px] text-primary md:size-[34px]" />
+            </div>
+
+            <Typography
+              as="h1"
+              variant="h1"
+              className="w-full text-center text-[40px] leading-[0.98] md:text-[52px]"
+            >
+              Presença confirmada!
+            </Typography>
+
+            <Typography className="w-full max-w-[560px] text-center text-base leading-[1.35] font-medium text-muted-foreground md:leading-[1.4]">
+              Que bom ter você com a gente. Sua resposta foi enviada com sucesso
+              e já está registrada na lista de convidados.
+            </Typography>
+
+            <Typography className="w-full max-w-[520px] text-center text-sm leading-[1.35] font-semibold text-primary">
+              Se precisar ajustar nomes ou restrições, é só enviar novamente o
+              formulário.
+            </Typography>
+
+            <Button
+              type="button"
+              intent="default"
+              size="default"
+              className="w-full md:w-fit"
+              trailingIcon={
+                <ChevronRight className="size-3.5 text-primary-contrast" />
+              }
+              onClick={() => setIsConfirmationScreenVisible(false)}
+            >
+              VOLTAR PARA OS DETALHES
+            </Button>
+
+            <Typography className="text-center text-base font-medium text-muted-foreground">
+              A festa vai ficar ainda melhor com você lá 💙
+            </Typography>
+          </div>
+        </section>
+      </main>
+    );
+  }
 
   return (
     <main className="min-h-dvh w-full overflow-x-hidden bg-background xl:h-dvh xl:overflow-y-hidden">
@@ -65,7 +191,11 @@ export default function Home() {
           <GradientDivider />
 
           <div className="flex w-full flex-col gap-3 rounded-xl border border-border bg-surface p-4 xl:hidden">
-            <Typography as="h2" variant="h1" className="text-[28px] text-foreground">
+            <Typography
+              as="h2"
+              variant="h1"
+              className="text-[28px] text-foreground"
+            >
               Detalhes
             </Typography>
 
@@ -93,20 +223,28 @@ export default function Home() {
             <Button
               intent="outlinePrimary"
               size="small"
-              leadingIcon={<MapPin className="size-4" />}
-              onClick={() =>
-                window.open(
-                  "https://maps.google.com/?q=Av.+Vereador+José+Diniz,+599",
-                  "_blank",
-                )
-              }
+              leadingIcon={<Map className="size-3.5" />}
+              onClick={() => window.open(GOOGLE_MAPS_URL, "_blank")}
             >
               Abrir no Google Maps
+            </Button>
+
+            <Button
+              intent="outlinePrimary"
+              size="small"
+              leadingIcon={<Navigation className="size-3.5" />}
+              onClick={() => window.open(WAZE_URL, "_blank")}
+            >
+              Abrir no Waze
             </Button>
           </div>
 
           <div className="hidden xl:flex xl:w-full xl:flex-col xl:gap-6">
-            <Typography as="h2" variant="h1" className="text-[42px] text-foreground">
+            <Typography
+              as="h2"
+              variant="h1"
+              className="text-[42px] text-foreground"
+            >
               Detalhes
             </Typography>
 
@@ -140,19 +278,25 @@ export default function Home() {
               </div>
             </div>
 
-            <Button
-              intent="outlinePrimary"
-              size="small"
-              leadingIcon={<MapPin className="size-4" />}
-              onClick={() =>
-                window.open(
-                  "https://maps.google.com/?q=Av.+Vereador+José+Diniz,+599",
-                  "_blank",
-                )
-              }
-            >
-              Abrir no Google Maps
-            </Button>
+            <div className="flex w-fit flex-col gap-2">
+              <Button
+                intent="outlinePrimary"
+                size="small"
+                leadingIcon={<Map className="size-3.5" />}
+                onClick={() => window.open(GOOGLE_MAPS_URL, "_blank")}
+              >
+                Abrir no Google Maps
+              </Button>
+
+              <Button
+                intent="outlinePrimary"
+                size="small"
+                leadingIcon={<Navigation className="size-3.5" />}
+                onClick={() => window.open(WAZE_URL, "_blank")}
+              >
+                Abrir no Waze
+              </Button>
+            </div>
 
             <Typography className="text-base font-medium tracking-[0.7px] text-muted-foreground">
               Feito com ♥ e Coquinha Zero
@@ -160,7 +304,10 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="flex h-full min-h-0 w-full flex-col gap-5 bg-background px-6 pt-5 pb-6 sm:px-8 sm:pb-8 xl:overflow-y-auto xl:gap-6 xl:bg-surface xl:px-16 xl:pt-32 xl:pb-16">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex h-full min-h-0 w-full flex-col gap-5 bg-background px-6 pt-5 pb-6 sm:px-8 sm:pb-8 xl:overflow-y-auto xl:gap-6 xl:bg-surface xl:px-16 xl:pt-32 xl:pb-16"
+        >
           <div className="xl:hidden">
             <GradientDivider reverse />
           </div>
@@ -184,111 +331,151 @@ export default function Home() {
           </div>
 
           <div className="flex w-full flex-col gap-4">
-            <Typography as="h3" variant="h1" className="text-[22px] text-primary">
+            <Typography
+              as="h3"
+              variant="h1"
+              className="text-[22px] text-primary"
+            >
               Lista de convidados
             </Typography>
 
-            <div className="flex w-full flex-col gap-2.5 rounded-xl border border-border bg-surface p-2.5">
-              <div className="flex w-full items-center justify-between">
-                <Typography
-                  as="p"
-                  variant="h1"
-                  className="text-[17px] text-foreground"
-                >
-                  Pessoa 1
-                </Typography>
-                <Button
-                  intent="outlineSecondary"
-                  size="small"
-                  leadingIcon={<Trash2 className="size-3.5" />}
-                >
-                  Remover
-                </Button>
-              </div>
+            {fields.map((field, index) => (
+              <div
+                key={field.id}
+                className="flex w-full flex-col gap-2.5 rounded-xl border border-border bg-surface p-2.5"
+              >
+                <div className="flex w-full items-center justify-between">
+                  <Typography
+                    as="p"
+                    variant="h1"
+                    className="text-[17px] text-foreground"
+                  >
+                    {`Pessoa ${index + 1}`}
+                  </Typography>
+                  <Button
+                    type="button"
+                    intent="outlineSecondary"
+                    size="small"
+                    leadingIcon={<Trash2 className="size-3.5" />}
+                    state={canRemoveGuest ? "default" : "disabled"}
+                    onClick={() => remove(index)}
+                  >
+                    Remover
+                  </Button>
+                </div>
 
-              <div className="flex w-full flex-col gap-2.5 xl:flex-row">
-                <Input
-                  label="Nome completo"
-                  value={guestName}
-                  onChange={(event) => setGuestName(event.target.value)}
-                  placeholder="Seu nome completo"
-                  state="default"
-                />
-                <Input
-                  label="Telefone (zap)"
-                  value={phone}
-                  onChange={(event) => setPhone(event.target.value)}
-                  placeholder="(11) 99999-0000"
-                  mask="(99) 99999-9999"
-                  state="default"
-                />
-              </div>
-
-              <div className="flex w-full flex-col gap-1.5">
-                <Typography className="text-base font-semibold text-foreground">
-                  Restrições alimentares
-                </Typography>
-                <div className="flex w-full flex-col gap-2">
-                  <Switch
-                    label="Vegano(a)"
-                    state={restrictions.vegan ? "active" : "inactive"}
-                    onClick={() =>
-                      setRestrictions((current) => ({
-                        ...current,
-                        vegan: !current.vegan,
-                      }))
-                    }
+                <div className="flex w-full flex-col gap-2.5 xl:flex-row">
+                  <Controller
+                    control={control}
+                    name={`guests.${index}.name`}
+                    render={({ field: controllerField, fieldState }) => (
+                      <Input
+                        label="Nome completo"
+                        value={controllerField.value}
+                        onChange={controllerField.onChange}
+                        onBlur={controllerField.onBlur}
+                        placeholder="Seu nome completo"
+                        state={fieldState.error ? "error" : "default"}
+                        errorMessage={fieldState.error?.message}
+                      />
+                    )}
                   />
-                  <Switch
-                    label="Vegetariano(a)"
-                    state={restrictions.vegetarian ? "active" : "inactive"}
-                    onClick={() =>
-                      setRestrictions((current) => ({
-                        ...current,
-                        vegetarian: !current.vegetarian,
-                      }))
-                    }
-                  />
-                  <Switch
-                    label="Sem lactose"
-                    state={restrictions.lactoseFree ? "active" : "inactive"}
-                    onClick={() =>
-                      setRestrictions((current) => ({
-                        ...current,
-                        lactoseFree: !current.lactoseFree,
-                      }))
-                    }
-                  />
-                  <Switch
-                    label="Sem glúten"
-                    state={restrictions.glutenFree ? "active" : "inactive"}
-                    onClick={() =>
-                      setRestrictions((current) => ({
-                        ...current,
-                        glutenFree: !current.glutenFree,
-                      }))
-                    }
+                  <Controller
+                    control={control}
+                    name={`guests.${index}.phone`}
+                    render={({ field: controllerField, fieldState }) => (
+                      <Input
+                        label="Telefone (zap)"
+                        value={controllerField.value}
+                        onChange={controllerField.onChange}
+                        onBlur={controllerField.onBlur}
+                        placeholder="(11) 99999-0000"
+                        mask="(99) 99999-9999"
+                        state={fieldState.error ? "error" : "default"}
+                        errorMessage={fieldState.error?.message}
+                      />
+                    )}
                   />
                 </div>
+
+                <div className="flex w-full flex-col gap-1.5">
+                  <Typography className="text-base font-semibold text-foreground">
+                    Restrições alimentares
+                  </Typography>
+                  <div className="flex w-full flex-col gap-2">
+                    <Switch
+                      label="Vegano(a)"
+                      state={
+                        guests?.[index]?.restrictions?.vegan
+                          ? "active"
+                          : "inactive"
+                      }
+                      onClick={() => toggleRestriction(index, "vegan")}
+                    />
+                    <Switch
+                      label="Vegetariano(a)"
+                      state={
+                        guests?.[index]?.restrictions?.vegetarian
+                          ? "active"
+                          : "inactive"
+                      }
+                      onClick={() => toggleRestriction(index, "vegetarian")}
+                    />
+                    <Switch
+                      label="Sem lactose"
+                      state={
+                        guests?.[index]?.restrictions?.lactoseFree
+                          ? "active"
+                          : "inactive"
+                      }
+                      onClick={() => toggleRestriction(index, "lactoseFree")}
+                    />
+                    <Switch
+                      label="Sem glúten"
+                      state={
+                        guests?.[index]?.restrictions?.glutenFree
+                          ? "active"
+                          : "inactive"
+                      }
+                      onClick={() => toggleRestriction(index, "glutenFree")}
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
+            ))}
+
+            {guestsRootError ? (
+              <Typography className="text-sm font-semibold text-accent">
+                {guestsRootError}
+              </Typography>
+            ) : null}
 
             <Button
+              type="button"
               intent="outlinePrimary"
               size="small"
+              className="shrink-0"
               leadingIcon={<Plus className="size-4" />}
+              state={canAddGuest ? "default" : "disabled"}
+              onClick={() =>
+                append({
+                  ...newGuestTemplate,
+                  restrictions: { ...newGuestTemplate.restrictions },
+                })
+              }
             >
               Adicionar convidado
             </Button>
           </div>
 
           <Button
+            type="submit"
             intent="default"
             size="default"
+            className="w-full shrink-0"
             trailingIcon={
               <ChevronRight className="size-3.5 text-primary-contrast" />
             }
-            className="w-full"
           >
             CONFIRMAR PRESENÇA
           </Button>
@@ -296,7 +483,7 @@ export default function Home() {
           <Typography className="text-center text-base font-medium tracking-[0.6px] text-muted-foreground xl:hidden">
             Feito com ♥ e Coquinha Zero
           </Typography>
-        </div>
+        </form>
       </section>
     </main>
   );

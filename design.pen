@@ -1,5 +1,5 @@
 {
-  "version": "2.9",
+  "version": "2.10",
   "children": [
     {
       "type": "frame",
@@ -261,7 +261,7 @@
               "descendants": {
                 "qTfdt": {
                   "enabled": true,
-                  "iconFontName": "map-pin",
+                  "iconFontName": "map",
                   "x": 12,
                   "y": 10
                 },
@@ -269,6 +269,27 @@
                   "content": "Abrir no Google Maps",
                   "x": 36,
                   "y": 9
+                },
+                "8VNtv": {
+                  "enabled": false
+                }
+              }
+            },
+            {
+              "id": "GAITE",
+              "type": "ref",
+              "ref": "8qWnt",
+              "name": "wazeMobBtn",
+              "width": "fit_content",
+              "x": 16,
+              "y": 234,
+              "descendants": {
+                "qTfdt": {
+                  "enabled": true,
+                  "iconFontName": "navigation"
+                },
+                "z2NP3": {
+                  "content": "Abrir no Waze"
                 },
                 "8VNtv": {
                   "enabled": false
@@ -911,29 +932,59 @@
               ]
             },
             {
-              "id": "4c6UH",
-              "type": "ref",
-              "ref": "8qWnt",
-              "name": "mapDeskBtn",
-              "width": "fit_content",
-              "x": 64,
-              "y": 630,
-              "descendants": {
-                "qTfdt": {
-                  "enabled": true,
-                  "iconFontName": "map-pin",
-                  "x": 12,
-                  "y": 10
+              "type": "frame",
+              "id": "ZnLBL",
+              "name": "deskMapButtonsWrap",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "id": "4c6UH",
+                  "type": "ref",
+                  "ref": "8qWnt",
+                  "name": "mapDeskBtn",
+                  "width": "fit_content",
+                  "x": 0,
+                  "y": 0,
+                  "descendants": {
+                    "qTfdt": {
+                      "enabled": true,
+                      "iconFontName": "map",
+                      "x": 12,
+                      "y": 10
+                    },
+                    "z2NP3": {
+                      "content": "Abrir no Google Maps",
+                      "x": 36,
+                      "y": 9
+                    },
+                    "8VNtv": {
+                      "enabled": false
+                    }
+                  }
                 },
-                "z2NP3": {
-                  "content": "Abrir no Google Maps",
-                  "x": 36,
-                  "y": 9
-                },
-                "8VNtv": {
-                  "enabled": false
+                {
+                  "id": "V3rAz",
+                  "type": "ref",
+                  "ref": "8qWnt",
+                  "name": "wazeDeskBtn",
+                  "width": "fit_content",
+                  "x": 0,
+                  "y": 44,
+                  "descendants": {
+                    "qTfdt": {
+                      "enabled": true,
+                      "iconFontName": "navigation"
+                    },
+                    "z2NP3": {
+                      "content": "Abrir no Waze"
+                    },
+                    "8VNtv": {
+                      "enabled": false
+                    }
+                  }
                 }
-              }
+              ]
             },
             {
               "type": "text",
@@ -2097,7 +2148,7 @@
                       "id": "lBTHR",
                       "type": "ref",
                       "ref": "2GwgH",
-                      "width": 220,
+                      "width": "fill_container",
                       "name": "th4",
                       "height": "fit_content",
                       "x": 354,
@@ -2115,7 +2166,7 @@
                       "width": 130,
                       "name": "th5",
                       "height": "fit_content",
-                      "x": 574,
+                      "x": 742,
                       "y": 12,
                       "descendants": {
                         "2tAG8": {
@@ -2129,7 +2180,7 @@
                       "ref": "2GwgH",
                       "width": 100,
                       "name": "stHead",
-                      "x": 704,
+                      "x": 872,
                       "y": 12,
                       "height": "fit_content",
                       "descendants": {
@@ -2144,7 +2195,7 @@
                       "ref": "2GwgH",
                       "width": 110,
                       "name": "aHead",
-                      "x": 804,
+                      "x": 972,
                       "y": 12,
                       "height": "fit_content",
                       "descendants": {
@@ -2206,7 +2257,7 @@
                       "type": "frame",
                       "id": "EfuCf",
                       "name": "r1chips",
-                      "width": 220,
+                      "width": "fill_container",
                       "gap": 4,
                       "alignItems": "center",
                       "children": [
@@ -2247,7 +2298,7 @@
                       "width": 130,
                       "name": "tc4",
                       "height": "fit_content",
-                      "x": 574,
+                      "x": 742,
                       "y": 13,
                       "descendants": {
                         "oKvtL": {
@@ -2281,6 +2332,7 @@
                       "type": "frame",
                       "id": "atPvF",
                       "name": "aRow1",
+                      "width": 110,
                       "gap": 12,
                       "alignItems": "center",
                       "children": [
@@ -2357,7 +2409,7 @@
                       "type": "frame",
                       "id": "Dhzid",
                       "name": "r2chips",
-                      "width": 220,
+                      "width": "fill_container",
                       "gap": 4,
                       "alignItems": "center",
                       "children": [
@@ -2383,7 +2435,7 @@
                       "width": 130,
                       "name": "tc8",
                       "height": "fit_content",
-                      "x": 574,
+                      "x": 742,
                       "y": 13,
                       "descendants": {
                         "oKvtL": {
@@ -2417,6 +2469,7 @@
                       "type": "frame",
                       "id": "egzHb",
                       "name": "aRow2",
+                      "width": 110,
                       "gap": 12,
                       "alignItems": "center",
                       "children": [
@@ -2487,7 +2540,7 @@
                       "type": "frame",
                       "id": "bIywc",
                       "name": "r3chips",
-                      "width": 220,
+                      "width": "fill_container",
                       "gap": 4,
                       "alignItems": "center",
                       "children": [
@@ -2513,7 +2566,7 @@
                       "width": 130,
                       "name": "tc12",
                       "height": "fit_content",
-                      "x": 574,
+                      "x": 742,
                       "y": 13,
                       "descendants": {
                         "oKvtL": {
@@ -2547,6 +2600,7 @@
                       "type": "frame",
                       "id": "jt812",
                       "name": "aRow3",
+                      "width": 110,
                       "gap": 12,
                       "alignItems": "center",
                       "children": [
@@ -6503,7 +6557,7 @@
       "type": "text",
       "id": "C2ncT",
       "x": 20,
-      "y": -20,
+      "y": -46,
       "name": "Handoff/Public",
       "fill": "#66eeff",
       "content": "TELAS PÚBLICAS",
