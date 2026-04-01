@@ -36,9 +36,10 @@ export const metadata: Metadata = {
     type: "website",
     locale: "pt_BR",
     siteName: "RSVP Cyberpunk",
+    url: "/",
     images: [
       {
-        url: "/opengraph-image",
+        url: "/opengraph-image?v=20260401",
         width: 1200,
         height: 630,
         alt: `${eventTitle} - Convite e confirmação de presença`,
@@ -49,7 +50,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${eventTitle} | RSVP`,
     description: eventDescription,
-    images: ["/opengraph-image"],
+    images: ["/twitter-image?v=20260401"],
   },
 };
 
