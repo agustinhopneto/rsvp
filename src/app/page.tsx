@@ -107,7 +107,7 @@ export default function Home() {
     return (
       <main className="min-h-dvh w-full bg-background p-6 md:p-10">
         <section className="flex min-h-[calc(100dvh-3rem)] w-full items-center justify-center md:min-h-[calc(100dvh-5rem)]">
-          <div className="flex min-h-full w-full flex-col items-center justify-center gap-[18px] rounded-xl border border-border bg-surface px-5 py-7 text-center md:min-h-0 md:max-w-[700px] md:gap-5 md:px-10 md:py-9">
+          <div className="flex min-h-full w-full flex-col items-center justify-center gap-4.5 rounded-xl border border-border bg-surface px-5 py-7 text-center md:min-h-0 md:max-w-175 md:gap-5 md:px-10 md:py-9">
             <Badge
               family="restriction"
               variant="filled"
@@ -116,8 +116,8 @@ export default function Home() {
               CONFIRMAÇÃO RECEBIDA
             </Badge>
 
-            <div className="flex size-16 items-center justify-center rounded-full border border-primary bg-primary-soft md:size-[72px]">
-              <Check className="size-[30px] text-primary md:size-[34px]" />
+            <div className="flex size-16 items-center justify-center rounded-full border border-primary bg-primary-soft md:size-18">
+              <Check className="size-7.5 text-primary md:size-8.5" />
             </div>
 
             <Typography
@@ -128,12 +128,12 @@ export default function Home() {
               Presença confirmada!
             </Typography>
 
-            <Typography className="w-full max-w-[560px] text-center text-base leading-[1.35] font-medium text-muted-foreground md:leading-[1.4]">
+            <Typography className="w-full max-w-140 text-center text-base leading-[1.35] font-medium text-muted-foreground md:leading-[1.4]">
               Que bom ter você com a gente. Sua resposta foi enviada com sucesso
               e já está registrada na lista de convidados.
             </Typography>
 
-            <Typography className="w-full max-w-[520px] text-center text-sm leading-[1.35] font-semibold text-primary">
+            <Typography className="w-full max-w-130 text-center text-sm leading-[1.35] font-semibold text-primary">
               Se precisar ajustar nomes ou restrições, é só enviar novamente o
               formulário.
             </Typography>
@@ -183,7 +183,7 @@ export default function Home() {
             Agustinho
           </Typography>
 
-          <Typography variant="body" className="w-full leading-[1.25] xl:w-90">
+          <Typography variant="body" className="w-full leading-tight xl:w-90">
             Venha celebrar conosco este momento especial. Sua presença vale mais
             que qualquer presente!
           </Typography>
