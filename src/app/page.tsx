@@ -163,7 +163,7 @@ export default function Home() {
   return (
     <main className="min-h-dvh w-full overflow-x-hidden bg-background xl:h-dvh xl:overflow-y-hidden">
       <section className="grid min-h-dvh w-full grid-cols-1 bg-background xl:h-full xl:grid-cols-2">
-        <div className="flex h-full w-full flex-col gap-5 bg-background px-6 pt-6 pb-0 sm:px-8 sm:pt-8 xl:overflow-y-hidden xl:gap-6 xl:px-16 xl:pt-32 xl:pb-16">
+        <div className="flex h-full w-full flex-col gap-5 bg-background px-6 pt-6 pb-0 sm:px-8 sm:pt-8 xl:overflow-y-auto xl:gap-6 xl:px-16 xl:pt-32 xl:pb-16">
           <Typography
             variant="caption"
             className="text-[16px] font-semibold tracking-[1.5px] text-accent"

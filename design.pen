@@ -286,10 +286,14 @@
               "descendants": {
                 "qTfdt": {
                   "enabled": true,
-                  "iconFontName": "navigation"
+                  "iconFontName": "navigation",
+                  "x": 12,
+                  "y": 10
                 },
                 "z2NP3": {
-                  "content": "Abrir no Waze"
+                  "content": "Abrir no Waze",
+                  "x": 36,
+                  "y": 9
                 },
                 "8VNtv": {
                   "enabled": false
@@ -974,10 +978,14 @@
                   "descendants": {
                     "qTfdt": {
                       "enabled": true,
-                      "iconFontName": "navigation"
+                      "iconFontName": "navigation",
+                      "x": 12,
+                      "y": 10
                     },
                     "z2NP3": {
-                      "content": "Abrir no Waze"
+                      "content": "Abrir no Waze",
+                      "x": 36,
+                      "y": 9
                     },
                     "8VNtv": {
                       "enabled": false
@@ -3427,6 +3435,7 @@
               "x": 24,
               "y": 60,
               "height": "fit_content",
+              "context": "",
               "descendants": {
                 "qf0h1": {
                   "content": "Dados do convidado"

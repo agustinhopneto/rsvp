@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Outfit, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
@@ -17,6 +17,15 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   title: "RSVP Cyberpunk",
   description: "Projeto full-stack Next.js + Supabase para RSVP.",
+  icons: {
+    icon: "/icon",
+    shortcut: "/icon",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#050712",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({
