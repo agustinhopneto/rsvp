@@ -1,3 +1,5 @@
+"use client";
+
 import type { ComponentProps } from "react";
 import { tv, type VariantProps } from "tailwind-variants";
 import { Label } from "@/components/ui/label";

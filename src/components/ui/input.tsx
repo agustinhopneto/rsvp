@@ -1,3 +1,5 @@
+"use client";
+
 import { useId, useMemo, type ComponentProps } from "react";
 import { tv, type VariantProps } from "tailwind-variants";
 import { withMask } from "use-mask-input";

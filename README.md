@@ -28,6 +28,7 @@ Preencha:
 - `NEXT_PUBLIC_SUPABASE_URL`
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 - `SUPABASE_SERVICE_ROLE_KEY`
+- `ADMIN_EMAILS` (lista de e-mails admin separados por vírgula)
 
 3. Rode em desenvolvimento:
 
@@ -39,8 +40,10 @@ npm run dev
 
 Para habilitar persistência do RSVP, aplique a migration:
 
-- Arquivo: `supabase/migrations/202604011715_create_rsvp_confirmations.sql`
-- No Supabase SQL Editor, cole e execute o conteúdo do arquivo
+- Arquivos:
+  - `supabase/migrations/202604011715_create_rsvp_confirmations.sql`
+  - `supabase/migrations/202604021830_add_attendance_status_to_rsvp_confirmations.sql`
+- No Supabase SQL Editor, execute as migrations em ordem
 
 Isso cria a tabela `public.rsvp_confirmations`, índices e política RLS para insert via `anon/authenticated`.
 
@@ -50,6 +53,14 @@ Isso cria a tabela `public.rsvp_confirmations`, índices e política RLS para in
 - `npm run lint` - lint com ESLint
 - `npm run typecheck` - checagem TypeScript
 - `npm run build` - build de produção
+
+## Login admin (sem cadastro)
+
+- Rota de login: `/admin/login`
+- Painel protegido: `/admin`
+- Login via `Supabase Auth` (email/senha)
+- Autorização por whitelist (`ADMIN_EMAILS`)
+- Crie o usuário admin no Supabase Dashboard (`Authentication > Users`)
 
 ## Estrutura base
 

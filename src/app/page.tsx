@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import Link from "next/link";
+import { useEffect, useState, useTransition } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Calendar,
@@ -11,12 +12,19 @@ import {
   MapPin,
   Navigation,
   Plus,
+  Shield,
   Trash2,
   Wine,
 } from "lucide-react";
 import { Controller, useFieldArray, useForm, useWatch } from "react-hook-form";
 import { submitRsvp } from "@/actions/rsvp";
 import { Badge, Button, Input, Switch, Typography } from "@/components/ui";
+import {
+  defaultEventSettings,
+  mapEventSettingsRow,
+  type EventSettingsRow,
+} from "@/lib/event-settings";
+import { createClientSupabaseClient } from "@/lib/supabase/client";
 import {
   type RsvpFormValues,
   rsvpFormSchema,
@@ -50,16 +58,72 @@ function GradientDivider({ reverse = false }: { reverse?: boolean }) {
 }
 
 export default function Home() {
-  const GOOGLE_MAPS_URL =
-    "https://maps.google.com/?q=Av.+Vereador+José+Diniz,+599";
-  const WAZE_URL = "https://waze.com/ul?q=Av.+Vereador+José+Diniz,+599";
-
   const [isConfirmationScreenVisible, setIsConfirmationScreenVisible] =
     useState(false);
+  const [canAccessAdminShortcut, setCanAccessAdminShortcut] = useState(false);
+  const [eventSettings, setEventSettings] = useState(defaultEventSettings);
   const [isSubmitting, startSubmitTransition] = useTransition();
   const [submitErrorMessage, setSubmitErrorMessage] = useState<string | null>(
     null,
   );
+
+  useEffect(() => {
+    let mounted = true;
+
+    const checkSession = async () => {
+      try {
+        const supabase = createClientSupabaseClient();
+        const { data } = await supabase.auth.getUser();
+
+        if (mounted) {
+          setCanAccessAdminShortcut(Boolean(data.user));
+        }
+      } catch {
+        if (mounted) {
+          setCanAccessAdminShortcut(false);
+        }
+      }
+    };
+
+    void checkSession();
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    let mounted = true;
+
+    const loadEventSettings = async () => {
+      try {
+        const supabase = createClientSupabaseClient();
+        const { data } = await supabase
+          .from("event_settings")
+          .select(
+            "hero_title, hero_subtitle, event_date, event_time, event_address, event_note, google_maps_url, waze_url",
+          )
+          .eq("id", "default")
+          .maybeSingle();
+
+        if (mounted) {
+          setEventSettings(
+            mapEventSettingsRow((data ?? null) as EventSettingsRow | null),
+          );
+        }
+      } catch {
+        if (mounted) {
+          setEventSettings(defaultEventSettings);
+        }
+      }
+    };
+
+    void loadEventSettings();
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   const { control, handleSubmit, setValue, reset, formState } =
     useForm<RsvpFormValues>({
@@ -180,21 +244,27 @@ export default function Home() {
             {"// CONVITE.EXE v3.0 INICIADO"}
           </Typography>
 
+          {canAccessAdminShortcut ? (
+            <Button
+              intent="outlinePrimary"
+              size="small"
+              className="w-fit"
+              leadingIcon={<Shield className="size-3.5" />}
+            >
+              <Link href="/admin">Área admin</Link>
+            </Button>
+          ) : null}
+
           <Typography
             as="h1"
             variant="h1"
             className="neon-flicker-title w-full text-[44px] leading-[0.98] xl:w-97.5 xl:text-[60px]"
           >
-            Churrascão
-            <br />
-            dos 30 do
-            <br />
-            Agustinho
+            {eventSettings.heroTitle}
           </Typography>
 
           <Typography variant="body" className="w-full leading-tight xl:w-90">
-            Venha celebrar conosco este momento especial. Sua presença vale mais
-            que qualquer presente!
+            {eventSettings.heroSubtitle}
           </Typography>
 
           <GradientDivider />
@@ -211,21 +281,21 @@ export default function Home() {
             <div className="flex w-full items-center gap-2">
               <Calendar className="size-3.5 text-accent" />
               <Typography className="w-full text-base font-semibold text-detail-foreground">
-                11 de Abril, 2026 · 14h30
+                {eventSettings.eventDate} · {eventSettings.eventTime}
               </Typography>
             </div>
 
             <div className="flex w-full items-center gap-2">
               <MapPin className="size-3.5 text-accent" />
               <Typography className="w-full text-base leading-[1.35] font-semibold text-detail-foreground">
-                Av. Vereador José Diniz, 599 - Salão de Festas
+                {eventSettings.eventAddress}
               </Typography>
             </div>
 
             <div className="flex w-full items-center gap-2">
               <Wine className="size-3.5 text-accent" />
               <Typography className="w-full text-base leading-[1.35] font-semibold text-detail-foreground">
-                Leve só o que for beber (álcool/extra).
+                {eventSettings.eventNote}
               </Typography>
             </div>
 
@@ -233,7 +303,7 @@ export default function Home() {
               intent="outlinePrimary"
               size="small"
               leadingIcon={<Map className="size-3.5" />}
-              onClick={() => window.open(GOOGLE_MAPS_URL, "_blank")}
+              onClick={() => window.open(eventSettings.googleMapsUrl, "_blank")}
             >
               Abrir no Google Maps
             </Button>
@@ -242,7 +312,7 @@ export default function Home() {
               intent="outlinePrimary"
               size="small"
               leadingIcon={<Navigation className="size-3.5" />}
-              onClick={() => window.open(WAZE_URL, "_blank")}
+              onClick={() => window.open(eventSettings.wazeUrl, "_blank")}
             >
               Abrir no Waze
             </Button>
@@ -261,13 +331,13 @@ export default function Home() {
               <div className="shrink-0 flex items-center gap-2">
                 <Calendar className="size-3.5 text-accent" />
                 <Typography className="text-base font-semibold text-detail-foreground">
-                  11 de Abril, 2026
+                  {eventSettings.eventDate}
                 </Typography>
               </div>
               <div className="flex min-w-0 flex-1 items-center gap-2">
                 <MapPin className="size-3.5 text-accent" />
                 <Typography className="w-full text-base font-semibold text-detail-foreground">
-                  Av. Vereador José Diniz, 599 - Salão de Festas
+                  {eventSettings.eventAddress}
                 </Typography>
               </div>
             </div>
@@ -276,13 +346,13 @@ export default function Home() {
               <div className="shrink-0 flex items-center gap-2">
                 <Clock3 className="size-3.5 text-accent" />
                 <Typography className="text-base font-semibold text-detail-foreground">
-                  14h30
+                  {eventSettings.eventTime}
                 </Typography>
               </div>
               <div className="flex min-w-0 flex-1 items-center gap-2">
                 <Wine className="size-3.5 text-accent" />
                 <Typography className="w-full text-base font-semibold text-detail-foreground">
-                  Leve só o que for beber (álcool/extra).
+                  {eventSettings.eventNote}
                 </Typography>
               </div>
             </div>
@@ -292,7 +362,9 @@ export default function Home() {
                 intent="outlinePrimary"
                 size="small"
                 leadingIcon={<Map className="size-3.5" />}
-                onClick={() => window.open(GOOGLE_MAPS_URL, "_blank")}
+                onClick={() =>
+                  window.open(eventSettings.googleMapsUrl, "_blank")
+                }
               >
                 Abrir no Google Maps
               </Button>
@@ -301,7 +373,7 @@ export default function Home() {
                 intent="outlinePrimary"
                 size="small"
                 leadingIcon={<Navigation className="size-3.5" />}
-                onClick={() => window.open(WAZE_URL, "_blank")}
+                onClick={() => window.open(eventSettings.wazeUrl, "_blank")}
               >
                 Abrir no Waze
               </Button>

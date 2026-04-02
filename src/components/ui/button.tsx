@@ -9,6 +9,7 @@ const buttonVariants = tv({
   variants: {
     intent: {
       default: "",
+      secondary: "",
       outlinePrimary: "",
       outlineSecondary: "",
     },
@@ -43,6 +44,28 @@ const buttonVariants = tv({
     },
     {
       intent: "default",
+      state: "loading",
+      className: "border-transparent bg-disabled-bg text-muted-foreground",
+    },
+    {
+      intent: "secondary",
+      state: "default",
+      className:
+        "border-transparent bg-accent text-accent-contrast hover:-translate-y-px hover:shadow-[0_0_8px_rgba(255,79,163,0.53)]",
+    },
+    {
+      intent: "secondary",
+      state: "hover",
+      className:
+        "border-transparent bg-accent text-accent-contrast shadow-[0_0_8px_rgba(255,79,163,0.53)]",
+    },
+    {
+      intent: "secondary",
+      state: "disabled",
+      className: "border-transparent bg-disabled-bg text-muted-foreground",
+    },
+    {
+      intent: "secondary",
       state: "loading",
       className: "border-transparent bg-disabled-bg text-muted-foreground",
     },

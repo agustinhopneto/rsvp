@@ -40,6 +40,7 @@ export async function submitRsvp(
     is_vegetarian: guest.restrictions.vegetarian,
     is_lactose_free: guest.restrictions.lactoseFree,
     is_gluten_free: guest.restrictions.glutenFree,
+    attendance_status: "confirmed" as const,
     source: "web",
     submitted_at: nowIso,
   }));
