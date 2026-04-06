@@ -5,7 +5,14 @@ import { useState } from "react";
 import { X } from "lucide-react";
 import { useFormStatus } from "react-dom";
 import { DeleteGuestAlertDialog } from "@/app/admin/delete-guest-alert-dialog";
-import { Badge, Button, Input, Label, Switch, Typography } from "@/components/ui";
+import {
+  Badge,
+  Button,
+  Input,
+  Label,
+  Switch,
+  Typography,
+} from "@/components/ui";
 import { updateGuestAction } from "@/app/admin/guest-actions";
 
 type GuestStatus = "confirmed" | "maybe" | "declined";
@@ -52,16 +59,20 @@ export function EditGuestModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-6">
-      <div className="w-full max-w-[780px] rounded-xl border border-border bg-surface p-6">
+      <div className="w-full max-w-195 rounded-xl border border-border bg-surface p-6">
         <div className="flex items-start justify-between gap-4">
           <div className="flex flex-col gap-2">
             <Badge family="restriction" variant="filledPink" className="w-fit">
               EDITAR CONVIDADO
             </Badge>
-            <Typography as="h2" variant="h1" className="text-[36px] text-primary">
+            <Typography
+              as="h2"
+              variant="h1"
+              className="text-[36px] text-primary"
+            >
               Dados do convidado
             </Typography>
-            <Typography className="max-w-[620px] text-sm">
+            <Typography className="max-w-155 text-sm">
               Atualize os dados abaixo, altere o status da presença ou remova o
               convidado da lista.
             </Typography>
@@ -80,10 +91,26 @@ export function EditGuestModal({
           <input type="hidden" name="guestId" value={guest.id} />
           <input type="hidden" name="returnTo" value={baseAdminHref} />
           <input type="hidden" name="vegan" value={vegan ? "on" : ""} />
-          <input type="hidden" name="vegetarian" value={vegetarian ? "on" : ""} />
-          <input type="hidden" name="lactoseFree" value={lactoseFree ? "on" : ""} />
-          <input type="hidden" name="glutenFree" value={glutenFree ? "on" : ""} />
-          <input type="hidden" name="attendanceStatus" value={attendanceStatus} />
+          <input
+            type="hidden"
+            name="vegetarian"
+            value={vegetarian ? "on" : ""}
+          />
+          <input
+            type="hidden"
+            name="lactoseFree"
+            value={lactoseFree ? "on" : ""}
+          />
+          <input
+            type="hidden"
+            name="glutenFree"
+            value={glutenFree ? "on" : ""}
+          />
+          <input
+            type="hidden"
+            name="attendanceStatus"
+            value={attendanceStatus}
+          />
 
           <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
             <Input
@@ -134,28 +161,43 @@ export function EditGuestModal({
             <div className="flex flex-col gap-2 rounded-lg border border-border bg-background/40 p-3">
               <Label>Status da presença</Label>
               <div className="flex flex-wrap items-center gap-2">
-                <button type="button" onClick={() => setAttendanceStatus("confirmed")}>
+                <button
+                  type="button"
+                  onClick={() => setAttendanceStatus("confirmed")}
+                >
                   <Badge
                     family="status"
-                    variant={attendanceStatus === "confirmed" ? "filled" : "outline"}
+                    variant={
+                      attendanceStatus === "confirmed" ? "filled" : "outline"
+                    }
                     statusTone="confirmed"
                   >
                     Confirmado
                   </Badge>
                 </button>
-                <button type="button" onClick={() => setAttendanceStatus("maybe")}>
+                <button
+                  type="button"
+                  onClick={() => setAttendanceStatus("maybe")}
+                >
                   <Badge
                     family="status"
-                    variant={attendanceStatus === "maybe" ? "filled" : "outline"}
+                    variant={
+                      attendanceStatus === "maybe" ? "filled" : "outline"
+                    }
                     statusTone="maybe"
                   >
                     Talvez
                   </Badge>
                 </button>
-                <button type="button" onClick={() => setAttendanceStatus("declined")}>
+                <button
+                  type="button"
+                  onClick={() => setAttendanceStatus("declined")}
+                >
                   <Badge
                     family="status"
-                    variant={attendanceStatus === "declined" ? "filled" : "outline"}
+                    variant={
+                      attendanceStatus === "declined" ? "filled" : "outline"
+                    }
                     statusTone="declined"
                   >
                     Não irá

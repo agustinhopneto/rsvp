@@ -69,7 +69,7 @@ export default async function AdminLoginPage({ searchParams }: LoginPageProps) {
     <main className="min-h-dvh w-full bg-background p-0">
       <section className="grid min-h-dvh w-full grid-cols-1 xl:grid-cols-[1fr_560px]">
         <div className="hidden h-full w-full bg-background px-12 py-16 xl:flex xl:flex-col xl:items-center xl:justify-center">
-          <div className="flex w-full max-w-[420px] flex-col items-center text-center">
+          <div className="flex w-full max-w-105 flex-col items-center text-center">
             <Typography
               variant="caption"
               className="text-[11px] tracking-[1.1px] text-accent"
@@ -120,7 +120,7 @@ export default async function AdminLoginPage({ searchParams }: LoginPageProps) {
         </div>
 
         <div className="flex min-h-dvh w-full flex-col justify-center bg-surface px-6 py-10 sm:px-10 xl:px-12">
-          <div className="mx-auto flex w-full max-w-[460px] flex-col gap-5">
+          <div className="mx-auto flex w-full max-w-115 flex-col gap-5">
             <div className="flex flex-col gap-2">
               <Typography
                 as="h2"

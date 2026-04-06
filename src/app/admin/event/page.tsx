@@ -21,7 +21,9 @@ type EventAdminPageProps = {
   }>;
 };
 
-export default async function EventAdminPage({ searchParams }: EventAdminPageProps) {
+export default async function EventAdminPage({
+  searchParams,
+}: EventAdminPageProps) {
   const { saved, error } = await searchParams;
 
   const supabase = await createServerSupabaseClient();
@@ -46,12 +48,14 @@ export default async function EventAdminPage({ searchParams }: EventAdminPagePro
     .eq("id", "default")
     .maybeSingle();
 
-  const settings = mapEventSettingsRow((data ?? null) as EventSettingsRow | null);
+  const settings = mapEventSettingsRow(
+    (data ?? null) as EventSettingsRow | null,
+  );
 
   return (
     <main className="min-h-dvh w-full bg-background">
       <section className="flex min-h-dvh w-full flex-col bg-background xl:h-dvh xl:flex-row">
-        <aside className="flex w-full flex-col gap-6 bg-surface p-6 xl:w-[280px] xl:p-7">
+        <aside className="flex w-full flex-col gap-6 bg-surface p-6 xl:w-70 xl:p-7">
           <Typography variant="caption" className="text-[11px] text-accent">
             {"// ADMIN.PAINEL"}
           </Typography>
@@ -72,7 +76,10 @@ export default async function EventAdminPage({ searchParams }: EventAdminPagePro
               className="flex h-10.5 w-full items-center gap-2 rounded-[10px] border border-primary bg-surface px-3"
             >
               <Settings className="size-3.5 text-primary" />
-              <Typography as="span" className="text-[13px] font-semibold text-primary">
+              <Typography
+                as="span"
+                className="text-[13px] font-semibold text-primary"
+              >
                 Edição da festa
               </Typography>
             </Link>
@@ -89,7 +96,12 @@ export default async function EventAdminPage({ searchParams }: EventAdminPagePro
           </div>
 
           <form action={logoutAdminAction} className="mt-auto">
-            <Button type="submit" intent="outlineSecondary" size="small" className="w-full">
+            <Button
+              type="submit"
+              intent="outlineSecondary"
+              size="small"
+              className="w-full"
+            >
               Sair do painel
             </Button>
           </form>
@@ -97,7 +109,11 @@ export default async function EventAdminPage({ searchParams }: EventAdminPagePro
 
         <div className="flex w-full flex-col gap-6 bg-background p-6 xl:p-8">
           <div className="flex w-full flex-col gap-2">
-            <Typography as="h1" variant="h1" className="text-[44px] text-primary">
+            <Typography
+              as="h1"
+              variant="h1"
+              className="text-[44px] text-primary"
+            >
               Edição das informações da festa
             </Typography>
             <Typography className="max-w-4xl">
@@ -128,13 +144,17 @@ export default async function EventAdminPage({ searchParams }: EventAdminPagePro
               <Input
                 label="Título"
                 name="heroTitle"
-                defaultValue={settings.heroTitle || defaultEventSettings.heroTitle}
+                defaultValue={
+                  settings.heroTitle || defaultEventSettings.heroTitle
+                }
                 required
               />
               <Input
                 label="Subtítulo"
                 name="heroSubtitle"
-                defaultValue={settings.heroSubtitle || defaultEventSettings.heroSubtitle}
+                defaultValue={
+                  settings.heroSubtitle || defaultEventSettings.heroSubtitle
+                }
                 required
               />
             </div>
@@ -143,13 +163,17 @@ export default async function EventAdminPage({ searchParams }: EventAdminPagePro
               <Input
                 label="Data"
                 name="eventDate"
-                defaultValue={settings.eventDate || defaultEventSettings.eventDate}
+                defaultValue={
+                  settings.eventDate || defaultEventSettings.eventDate
+                }
                 required
               />
               <Input
                 label="Horário"
                 name="eventTime"
-                defaultValue={settings.eventTime || defaultEventSettings.eventTime}
+                defaultValue={
+                  settings.eventTime || defaultEventSettings.eventTime
+                }
                 required
               />
             </div>
@@ -158,13 +182,17 @@ export default async function EventAdminPage({ searchParams }: EventAdminPagePro
               <Input
                 label="Endereço"
                 name="eventAddress"
-                defaultValue={settings.eventAddress || defaultEventSettings.eventAddress}
+                defaultValue={
+                  settings.eventAddress || defaultEventSettings.eventAddress
+                }
                 required
               />
               <Input
                 label="Detalhe adicional"
                 name="eventNote"
-                defaultValue={settings.eventNote || defaultEventSettings.eventNote}
+                defaultValue={
+                  settings.eventNote || defaultEventSettings.eventNote
+                }
                 required
               />
             </div>
@@ -172,7 +200,9 @@ export default async function EventAdminPage({ searchParams }: EventAdminPagePro
             <Input
               label="Link do Google Maps"
               name="googleMapsUrl"
-              defaultValue={settings.googleMapsUrl || defaultEventSettings.googleMapsUrl}
+              defaultValue={
+                settings.googleMapsUrl || defaultEventSettings.googleMapsUrl
+              }
               required
             />
 

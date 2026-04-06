@@ -60,10 +60,14 @@ export function DeleteGuestAlertDialog({
       )}
 
       {open ? (
-        <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/70 p-6">
-          <div className="w-full max-w-[420px] rounded-xl border border-accent bg-surface p-5 shadow-[0_0_0_1px_rgba(255,79,163,0.25)]">
+        <div className="fixed inset-0 z-70 flex items-center justify-center bg-black/70 p-6">
+          <div className="w-full max-w-105 rounded-xl border border-accent bg-surface p-5 shadow-[0_0_0_1px_rgba(255,79,163,0.25)]">
             <div className="flex flex-col gap-3.5">
-              <Typography as="h3" variant="h1" className="text-[30px] leading-none text-accent">
+              <Typography
+                as="h3"
+                variant="h1"
+                className="text-[30px] leading-none text-accent"
+              >
                 Confirmar exclusão?
               </Typography>
 

@@ -314,7 +314,8 @@ export default async function AdminHomePage({ searchParams }: AdminPageProps) {
   const selectedStatuses = parseListParam(status);
   const currentSortBy = parseSortKey(sortBy);
   const currentSortDir = parseSortDir(sortDir);
-  const hasExplicitSorting = typeof sortBy === "string" || typeof sortDir === "string";
+  const hasExplicitSorting =
+    typeof sortBy === "string" || typeof sortDir === "string";
   const showUpdatedMessage = updated === "1";
   const showDeletedMessage = deleted === "1";
   const adminSupabase = createAdminSupabaseClient();
@@ -356,12 +357,14 @@ export default async function AdminHomePage({ searchParams }: AdminPageProps) {
     currentSortDir,
     hasExplicitSorting,
   );
-  const editingGuest = edit ? rows.find((row) => row.id === edit) ?? null : null;
+  const editingGuest = edit
+    ? (rows.find((row) => row.id === edit) ?? null)
+    : null;
 
   return (
     <main className="min-h-dvh w-full bg-background">
       <section className="flex min-h-dvh w-full flex-col bg-background xl:h-dvh xl:flex-row">
-        <aside className="flex w-full flex-col gap-6 bg-surface p-6 xl:w-[280px] xl:p-7">
+        <aside className="flex w-full flex-col gap-6 bg-surface p-6 xl:w-70 xl:p-7">
           <Typography variant="caption" className="text-[11px] text-accent">
             {"// ADMIN.PAINEL"}
           </Typography>
@@ -372,7 +375,10 @@ export default async function AdminHomePage({ searchParams }: AdminPageProps) {
               className="flex h-10.5 w-full items-center gap-2 rounded-[10px] border border-primary bg-surface px-3"
             >
               <Users className="size-3.5 text-primary" />
-              <Typography as="span" className="text-[13px] font-semibold text-primary">
+              <Typography
+                as="span"
+                className="text-[13px] font-semibold text-primary"
+              >
                 Lista de convidados
               </Typography>
             </Link>
@@ -399,7 +405,12 @@ export default async function AdminHomePage({ searchParams }: AdminPageProps) {
           </div>
 
           <form action={logoutAdminAction} className="mt-auto">
-            <Button type="submit" intent="outlineSecondary" size="small" className="w-full">
+            <Button
+              type="submit"
+              intent="outlineSecondary"
+              size="small"
+              className="w-full"
+            >
               Sair do painel
             </Button>
           </form>
@@ -407,7 +418,11 @@ export default async function AdminHomePage({ searchParams }: AdminPageProps) {
 
         <div className="flex w-full flex-col gap-6 bg-background p-6 xl:p-8">
           <div className="flex w-full flex-col gap-2">
-            <Typography as="h1" variant="h1" className="text-[44px] text-primary">
+            <Typography
+              as="h1"
+              variant="h1"
+              className="text-[44px] text-primary"
+            >
               Lista de convidados
             </Typography>
             <Typography className="max-w-4xl">
@@ -434,7 +449,10 @@ export default async function AdminHomePage({ searchParams }: AdminPageProps) {
                         { type: "restriction", key: option.key },
                       )}
                     >
-                      <Badge family="restriction" variant={isSelected ? "filled" : "outline"}>
+                      <Badge
+                        family="restriction"
+                        variant={isSelected ? "filled" : "outline"}
+                      >
                         {option.label}
                       </Badge>
                     </Link>
@@ -504,7 +522,9 @@ export default async function AdminHomePage({ searchParams }: AdminPageProps) {
 
           {deleteError ? (
             <div className="rounded-xl border border-accent/50 bg-accent/10 p-4">
-              <Typography className="text-sm text-accent">{deleteError}</Typography>
+              <Typography className="text-sm text-accent">
+                {deleteError}
+              </Typography>
             </div>
           ) : null}
 
@@ -512,14 +532,17 @@ export default async function AdminHomePage({ searchParams }: AdminPageProps) {
             {hasExplicitSorting ? (
               <div className="flex items-center justify-end border-b border-border px-3.5 py-2">
                 <Link
-                  href={buildClearSortHref(selectedRestrictions, selectedStatuses)}
+                  href={buildClearSortHref(
+                    selectedRestrictions,
+                    selectedStatuses,
+                  )}
                   className="text-xs font-semibold tracking-[0.2px] text-accent transition-opacity hover:opacity-80"
                 >
                   Limpar ordenação
                 </Link>
               </div>
             ) : null}
-            <table className="min-w-[980px] w-full border-collapse">
+            <table className="min-w-245 w-full border-collapse">
               <thead className="bg-surface">
                 <tr className="border-b border-border">
                   <th className="px-3.5 py-3 text-left">
@@ -596,7 +619,9 @@ export default async function AdminHomePage({ searchParams }: AdminPageProps) {
                       className="border-b border-border transition-colors duration-150 hover:bg-primary-soft/25 last:border-b-0"
                     >
                       <td className="px-3.5 py-3">
-                        <Typography variant="tableCell">{row.guest_name}</Typography>
+                        <Typography variant="tableCell">
+                          {row.guest_name}
+                        </Typography>
                       </td>
                       <td className="px-3.5 py-3">
                         <Typography variant="tableCell">{row.phone}</Typography>
@@ -609,7 +634,11 @@ export default async function AdminHomePage({ searchParams }: AdminPageProps) {
                             </Badge>
                           ) : (
                             rowRestrictions.map((restriction) => (
-                              <Badge key={restriction} family="restriction" variant="outline">
+                              <Badge
+                                key={restriction}
+                                family="restriction"
+                                variant="outline"
+                              >
                                 {restriction}
                               </Badge>
                             ))
@@ -622,7 +651,11 @@ export default async function AdminHomePage({ searchParams }: AdminPageProps) {
                         </Typography>
                       </td>
                       <td className="px-3.5 py-3">
-                        <Badge family="status" variant="filled" statusTone={statusTone(rowStatus)}>
+                        <Badge
+                          family="status"
+                          variant="filled"
+                          statusTone={statusTone(rowStatus)}
+                        >
                           {rowStatus === "confirmed"
                             ? "Confirmado"
                             : rowStatus === "maybe"
